@@ -5,10 +5,11 @@ module.exports = {
   },
   'extends': [
     'eslint:recommended',
+    'plugin:solid/recommended',
     'plugin:@typescript-eslint/recommended',
   ],
   'parser': '@typescript-eslint/parser',
-  'plugins': ['@typescript-eslint', '@stylistic'],
+  'plugins': ['@typescript-eslint', '@stylistic', 'solid',],
   'parserOptions': {
     'ecmaVersion': 'latest',
     'sourceType': 'module',
