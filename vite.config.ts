@@ -1,12 +1,12 @@
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
+import { defineConfig, } from 'vite';
+import { resolve, } from 'path';
 import solid from 'vite-plugin-solid';
 
 export default defineConfig({
-  plugins: [solid()],
+  plugins: [solid(),],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '@': resolve(__dirname, './src',),
     },
   },
-})
+},);
