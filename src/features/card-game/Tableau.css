@@ -1,0 +1,20 @@
+.card-game-tableau {
+  width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 100px 1fr;
+  grid-gap: 20px;
+}
+
+.card-game-tableau .card-pile {
+  border: 1px solid black;
+  height: 100px;
+}
+
+.card-game-tableau .card-pile.right-to-left {
+}
+
+.card-game-tableau .foundation {
+  border: 1px solid black;
+  height: 100px;
+}
+
