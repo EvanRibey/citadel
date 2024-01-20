@@ -1,6 +1,6 @@
 {
   "*.{ts,tsx}": [
-    "eslint --config .eslintrc.cjs"
+    "eslint --config .eslintrc.cjs  --resolve-plugins-relative-to ."
   ],
   "*.html": [
     "eslint"
