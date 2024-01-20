@@ -6,7 +6,7 @@ function Tableau() {
       <div class="card-pile"></div>
       <div class="foundation"></div>
       <div class="card-pile"></div>
-      <div class="card-pile" />
+      <div class="card-pile"></div>
       <div class="foundation" />
       <div class="card-pile" />
       <div class="card-pile" />
