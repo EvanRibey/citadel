@@ -1,6 +1,6 @@
 {
   "*.{ts,tsx}": [
-    "eslint"
+    "eslint --config .eslintrc.json"
   ],
   "*.html": [
     "eslint"
