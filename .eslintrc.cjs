@@ -5,7 +5,7 @@ module.exports = {
   },
   'extends': [
     'eslint:recommended',
-    'plugin:solid/recommended',
+    'plugin:solid/typescript',
     'plugin:@typescript-eslint/recommended',
   ],
   'parser': '@typescript-eslint/parser',
@@ -13,6 +13,9 @@ module.exports = {
   'parserOptions': {
     'ecmaVersion': 'latest',
     'sourceType': 'module',
+    'ecmaFeatures': {
+      'jsx': true,
+    },
   },
   'rules': {
     '@stylistic/indent': ['error', 2],

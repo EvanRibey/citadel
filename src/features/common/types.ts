@@ -1,13 +1,14 @@
 import { JSX } from 'solid-js';
+import { VoidFunction } from '@/common/types/types';
 
 export interface DraggableProps {
   children: JSX.Element,
-  onDrag: JSX.EventHandlerUnion<HTMLDivElement, DragEvent>,
+  onDrag: VoidFunction,
 }
 
 export interface DroppableProps {
   children: JSX.Element,
   isDroppable: boolean,
-  onDrop: JSX.EventHandlerUnion<HTMLDivElement, DragEvent>,
-  onDragOver: JSX.EventHandlerUnion<HTMLDivElement, DragEvent>,
+  onDrop: VoidFunction,
+  onDragOver: VoidFunction,
 }
