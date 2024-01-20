@@ -1,0 +1,9 @@
+{
+  "*.ts": [
+    "eslint",
+    "tsc"
+  ],
+  "*.html": [
+    "eslint",
+  ]
+}

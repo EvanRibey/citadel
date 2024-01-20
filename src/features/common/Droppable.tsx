@@ -1,18 +1,13 @@
 import { JSX } from 'solid-js';
 import { DroppableProps } from './types';
 
-export function Droppable({
-  children,
-  isDroppable,
-  onDrop,
-  onDragOver,
-}: DroppableProps): JSX.Element {
+export function Droppable(props: DroppableProps): JSX.Element {
   return (
     <div
-      onDrop={isDroppable ? onDrop : undefined}
-      onDragOver={isDroppable ? onDragOver: undefined}
+      onDrop={props.isDroppable ? props.onDrop : undefined}
+      onDragOver={props.isDroppable ? props.onDragOver: undefined}
     >
-      {children}
+      {props.children}
     </div>
   );
 }
