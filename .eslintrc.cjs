@@ -15,7 +15,7 @@ module.exports = {
   },
   'rules': {
     '@stylistic/indent': ['error', 2],
-    '@stylistic/comma-dangle': ['error', 'always'],
+    '@stylistic/comma-dangle': ['error', 'always-multiline'],
     '@stylistic/quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
     '@stylistic/semi': ['error', 'always'],
     '@stylistic/jsx-indent': [2, 2],
