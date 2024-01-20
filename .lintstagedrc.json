@@ -1,5 +1,5 @@
 {
-  "*.{ts,tsx}": ["eslint --fix --quiet --config .eslintrc.json --resolve-plugins-relative-to .", "git add"],
+  "*.{ts,tsx}": ["eslint --fix --quiet --config .eslintrc.cjs --resolve-plugins-relative-to .", "git add"],
   "*.html": [
     "eslint"
   ]
