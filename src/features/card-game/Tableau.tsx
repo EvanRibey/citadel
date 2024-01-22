@@ -36,21 +36,16 @@ export function Tableau() {
     [foundationPile4()[foundationPile4().length - 1], setFoundationPile4],
   ];
 
+  const lastFoundationCardAndSetter: () => [Card, Setter<Card[]>][] = () => [
+    [foundationPile1()[foundationPile1().length - 1], setFoundationPile1],
+    [foundationPile2()[foundationPile2().length - 1], setFoundationPile2],
+    [foundationPile3()[foundationPile3().length - 1], setFoundationPile3],
+    [foundationPile4()[foundationPile4().length - 1], setFoundationPile4],
+  ];
+
   const [draggedCard, setDraggedCard] = createSignal<null | Card>(null);
   const [moveToPile, setMoveToPile] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
   const [moveToFoundation, setMoveToFoundation] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
-
-  setCardPile1((cards) => [...cards, new Card('clubs', '10')]);
-  setCardPile1((cards) => [...cards, new Card('diamonds', '6')]);
-  setCardPile1((cards) => [...cards, new Card('hearts', 'Queen')]);
-  setCardPile1((cards) => [...cards, new Card('spades', '8')]);
-
-  setCardPile2((cards) => [...cards, new Card('clubs', 'Queen')]);
-  setCardPile2((cards) => [...cards, new Card('diamonds', 'Jack')]);
-  setCardPile2((cards) => [...cards, new Card('hearts', '10')]);
-  setCardPile2((cards) => [...cards, new Card('spades', '9')]);
-
-  setCardPile3((cards) => [...cards, new Card('hearts', '2')]);
 
   const addCard = (nextCard: Card) => (cards: Card[]) => [...cards, nextCard];
 
@@ -108,31 +103,36 @@ export function Tableau() {
       let pileCounter = 0;
 
       while(card !== undefined) {
-        switch(pileCounter) {
-          case 0:
-            setCardPile1(addCard(card));
-            break;
-          case 1:
-            setCardPile2(addCard(card));
-            break;
-          case 2:
-            setCardPile3(addCard(card));
-            break;
-          case 3:
-            setCardPile4(addCard(card));
-            break;
-          case 4:
-            setCardPile5(addCard(card));
-            break;
-          case 5:
-            setCardPile6(addCard(card));
-            break;
-          case 6:
-            setCardPile7(addCard(card));
-            break;
-          case 7:
-            setCardPile8(addCard(card));
-            break;
+        const [, setter] = lastFoundationCardAndSetter().find(([lastCard]) => card && lastCard.isOneLesser(card)) || [];
+        if (!setter) {
+          switch(pileCounter) {
+            case 0:
+              setCardPile1(addCard(card));
+              break;
+            case 1:
+              setCardPile2(addCard(card));
+              break;
+            case 2:
+              setCardPile3(addCard(card));
+              break;
+            case 3:
+              setCardPile4(addCard(card));
+              break;
+            case 4:
+              setCardPile5(addCard(card));
+              break;
+            case 5:
+              setCardPile6(addCard(card));
+              break;
+            case 6:
+              setCardPile7(addCard(card));
+              break;
+            case 7:
+              setCardPile8(addCard(card));
+              break;
+          }
+        } else {
+          setter && setter(addCard(card));
         }
 
         pileCounter += 1;
