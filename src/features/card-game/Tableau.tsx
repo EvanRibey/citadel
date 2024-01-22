@@ -103,7 +103,7 @@ export function Tableau() {
       let pileCounter = 0;
 
       while(card !== undefined) {
-        const [, setter] = lastFoundationCardAndSetter().find(([lastCard]) => card && lastCard.isOneLesser(card)) || [];
+        const [, setter] = lastFoundationCardAndSetter().find(([lastCard]) => card && lastCard.isOneLesser(card) && lastCard.isSameSuit(card)) || [];
         if (!setter) {
           switch(pileCounter) {
             case 0:
