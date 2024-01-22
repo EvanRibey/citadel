@@ -1,0 +1,8 @@
+.card-game-card {
+  position: absolute;
+  height: 100px;
+}
+
+.card-game-card .card-image {
+  height: 100px;
+}

@@ -1,4 +1,4 @@
-import Tableau from '@/features/card-game/Tableau';
+import { Tableau } from '@/features/card-game';
 import './App.css';
 
 function App() {

@@ -1,0 +1,5 @@
+.card-game-card-pile {
+  border: 1px solid black;
+  height: 100px;
+  position: relative;
+}

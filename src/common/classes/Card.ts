@@ -17,7 +17,11 @@ export class Card {
   }
 
   isLesser(card: Card) {
-    return this.numericalValue() < card.numericalValue();
+    return (this.numericalValue() + 1) ===  card.numericalValue();
+  }
+
+  isSameSuit(card: Card) {
+    return this.suit === card.suit;
   }
 
   numericalValue(): number {
