@@ -1,5 +1,5 @@
 import { JSX } from 'solid-js';
-import { VoidFunction } from '@/common/types/types';
+import { VoidFunction } from '@/common/types';
 
 export interface DraggableProps {
   children: JSX.Element,
