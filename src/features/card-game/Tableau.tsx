@@ -40,17 +40,17 @@ export function Tableau() {
   const [moveToPile, setMoveToPile] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
   const [moveToFoundation, setMoveToFoundation] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
 
-  // setCardPile1((cards) => [...cards, new Card('clubs', '10')]);
-  // setCardPile1((cards) => [...cards, new Card('diamonds', '6')]);
-  // setCardPile1((cards) => [...cards, new Card('hearts', 'Queen')]);
-  // setCardPile1((cards) => [...cards, new Card('spades', '8')]);
-  //
-  // setCardPile2((cards) => [...cards, new Card('clubs', 'Queen')]);
-  // setCardPile2((cards) => [...cards, new Card('diamonds', 'Jack')]);
-  // setCardPile2((cards) => [...cards, new Card('hearts', '10')]);
-  // setCardPile2((cards) => [...cards, new Card('spades', '9')]);
-  //
-  // setCardPile3((cards) => [...cards, new Card('hearts', '2')]);
+  setCardPile1((cards) => [...cards, new Card('clubs', '10')]);
+  setCardPile1((cards) => [...cards, new Card('diamonds', '6')]);
+  setCardPile1((cards) => [...cards, new Card('hearts', 'Queen')]);
+  setCardPile1((cards) => [...cards, new Card('spades', '8')]);
+
+  setCardPile2((cards) => [...cards, new Card('clubs', 'Queen')]);
+  setCardPile2((cards) => [...cards, new Card('diamonds', 'Jack')]);
+  setCardPile2((cards) => [...cards, new Card('hearts', '10')]);
+  setCardPile2((cards) => [...cards, new Card('spades', '9')]);
+
+  setCardPile3((cards) => [...cards, new Card('hearts', '2')]);
 
   const addCard = (nextCard: Card) => (cards: Card[]) => [...cards, nextCard];
 
@@ -64,9 +64,10 @@ export function Tableau() {
 
   const dropHandler = (cardPile: Accessor<Card[]>, cardPileSetter: Setter<Card[]>) => () => {
     const [, setter] = lastCardAndSetter().find(([card]) => card === draggedCard()) || [];
-    const lastCard = cardPile()[cardPile.length - 1];
+    const lastCard = cardPile()[cardPile().length - 1];
+    const card = draggedCard();
 
-    if (setter && (lastCard === undefined || draggedCard()?.isLesser(lastCard))) {
+    if (setter && card && (lastCard === undefined || card.isOneLesser(lastCard))) {
       setMoveToPile([draggedCard(), cardPileSetter, setter]);
     }
   };
@@ -78,7 +79,7 @@ export function Tableau() {
 
     if (setter && card !== null &&
       (lastCard === undefined || 
-        (lastCard.isLesser(card) && lastCard.isSameSuit(card))
+        (lastCard.isOneLesser(card) && lastCard.isSameSuit(card))
       )
     ) {
       setMoveToFoundation([draggedCard(), cardPileSetter, setter]);
@@ -147,7 +148,6 @@ export function Tableau() {
     if (droppedCard && from && to) {
       from((cards: Card[]) => cards.slice(0, cards.length - 1));
       to(addCard(droppedCard));
-      // to((cards: Card[]) => [...cards, droppedCard]);
       setMoveToPile([null, null, null]);
     }
   });
@@ -157,7 +157,6 @@ export function Tableau() {
     if (droppedCard && from && to) {
       from((cards: Card[]) => cards.slice(0, cards.length - 1));
       to(addCard(droppedCard));
-      // to((cards: Card[]) => [...cards, droppedCard]);
       setMoveToFoundation([null, null, null]);
     }
   });

@@ -16,8 +16,8 @@ export class Card {
     return cardImages[suit + value];
   }
 
-  isLesser(card: Card) {
-    return (this.numericalValue() + 1) ===  card.numericalValue();
+  isOneLesser(card: Card) {
+    return (this.numericalValue() + 1) === card.numericalValue();
   }
 
   isSameSuit(card: Card) {

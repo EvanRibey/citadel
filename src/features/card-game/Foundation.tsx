@@ -10,7 +10,7 @@ export function Foundation(props: FoundationProps) {
         {(item) => (
           <Card
             data={item}
-            isDraggable
+            isDraggable={item.value !== 'Ace'}
             onDragEnd={props.onDragEnd}
             onDragStart={props.onDragStart(item)}
           />
