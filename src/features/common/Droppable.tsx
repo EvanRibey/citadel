@@ -12,7 +12,7 @@ export function Droppable(props: DroppableProps): JSX.Element {
     props.isDroppable && props.onDragOver && props.onDragOver();
   };
 
-  const handleDragEnd = (event: DragEvent) => {event.preventDefault();};
+  const handleDragEnd = (event: DragEvent) => { event.preventDefault() };
 
   return (
     <div
