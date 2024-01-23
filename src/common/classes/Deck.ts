@@ -9,7 +9,7 @@ export class Deck {
 
   constructor() {
     this.cards = suits.flatMap((suit) => {
-      return values.map((value) => new Card(suit, value));
+      return values.map(value => new Card(suit, value));
     });
   }
 

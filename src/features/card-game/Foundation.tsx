@@ -7,7 +7,7 @@ export function Foundation(props: FoundationProps) {
   return (
     <div class="card-game-foundation">
       <For each={props.cards}>
-        {(item) => (
+        {item => (
           <Card
             data={item}
             isDraggable={item.value !== 'Ace'}
