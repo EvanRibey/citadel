@@ -69,13 +69,14 @@ export function Tableau() {
 
   const dropFoundationHandler = (cardPile: Accessor<Card[]>, cardPileSetter: Setter<Card[]>) => () => {
     const [, setter] = lastCardAndSetter().find(([card]) => card === draggedCard()) || [];
-    const lastCard = cardPile()[cardPile.length - 1];
+    const lastCard = cardPile()[cardPile().length - 1];
     const card = draggedCard();
 
-    if (setter && card !== null &&
-      (lastCard === undefined || 
-        (lastCard.isOneLesser(card) && lastCard.isSameSuit(card))
-      )
+    if (setter
+      && card !== null
+      && lastCard !== undefined
+      && lastCard.isOneLesser(card)
+      && lastCard.isSameSuit(card)
     ) {
       setMoveToFoundation([draggedCard(), cardPileSetter, setter]);
     }
