@@ -1,9 +1,19 @@
-import { Accessor, Setter, createEffect, createSignal } from 'solid-js';
+import {
+  Accessor,
+  Setter,
+  createEffect,
+  createMemo,
+  createSignal,
+  createUniqueId,
+  onMount,
+} from 'solid-js';
 import { DragDropProvider, DragDropSensors, DragEventHandler } from '@thisbeyond/solid-dnd';
+import * as dialog from '@zag-js/dialog';
+import { useMachine, normalizeProps } from '@zag-js/solid';
 import { DIRECTION_LTR, DIRECTION_RTL } from '@/common/constants';
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
-import { CardPile, Foundation } from '.';
+import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,
   DROPPABLE_TYPE_FOUNDATION,
@@ -27,6 +37,9 @@ import {
 import './Tableau.css';
 
 export function Tableau() {
+  const [machineState, machineSend] = useMachine(dialog.machine({ id: createUniqueId() }));
+  const dialogMachine = createMemo(() => dialog.connect(machineState, machineSend, normalizeProps));
+
   const [cardPile1, setCardPile1] = createSignal<Card[]>([]);
   const [cardPile2, setCardPile2] = createSignal<Card[]>([]);
   const [cardPile3, setCardPile3] = createSignal<Card[]>([]);
@@ -36,10 +49,10 @@ export function Tableau() {
   const [cardPile7, setCardPile7] = createSignal<Card[]>([]);
   const [cardPile8, setCardPile8] = createSignal<Card[]>([]);
 
-  const [foundationPile1, setFoundationPile1] = createSignal<Card[]>([new Card('hearts', 'Ace')]);
-  const [foundationPile2, setFoundationPile2] = createSignal<Card[]>([new Card('diamonds', 'Ace')]);
-  const [foundationPile3, setFoundationPile3] = createSignal<Card[]>([new Card('clubs', 'Ace')]);
-  const [foundationPile4, setFoundationPile4] = createSignal<Card[]>([new Card('spades', 'Ace')]);
+  const [foundationPile1, setFoundationPile1] = createSignal<Card[]>([]);
+  const [foundationPile2, setFoundationPile2] = createSignal<Card[]>([]);
+  const [foundationPile3, setFoundationPile3] = createSignal<Card[]>([]);
+  const [foundationPile4, setFoundationPile4] = createSignal<Card[]>([]);
 
   const [moveToPile, setMoveToPile] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
 
@@ -76,13 +89,6 @@ export function Tableau() {
     [FOUNDATION_PILE_4]: [foundationPile4, setFoundationPile4],
   });
 
-  const lastFoundationCardAndSetter: () => [Card, Setter<Card[]>][] = () => [
-    [foundationPile1()[foundationPile1().length - 1], setFoundationPile1],
-    [foundationPile2()[foundationPile2().length - 1], setFoundationPile2],
-    [foundationPile3()[foundationPile3().length - 1], setFoundationPile3],
-    [foundationPile4()[foundationPile4().length - 1], setFoundationPile4],
-  ];
-
   const [isFoundation1Animating, setIsFoundation1Animating] = createSignal<boolean>(false);
   const [isFoundation2Animating, setIsFoundation2Animating] = createSignal<boolean>(false);
   const [isFoundation3Animating, setIsFoundation3Animating] = createSignal<boolean>(false);
@@ -94,6 +100,97 @@ export function Tableau() {
     setIsFoundation2Animating,
     setIsFoundation1Animating,
   ];
+
+  const initTableaux = () => {
+    const tempPile1 = [];
+    const tempPile2 = [];
+    const tempPile3 = [];
+    const tempPile4 = [];
+    const tempPile5 = [];
+    const tempPile6 = [];
+    const tempPile7 = [];
+    const tempPile8 = [];
+    const heartsFoundation = [new Card('hearts', 'Ace')];
+    const diamondsFoundation = [new Card('diamonds', 'Ace')];
+    const clubsFoundation = [new Card('clubs', 'Ace')];
+    const spadesFoundation = [new Card('spades', 'Ace')];
+
+    const deck = new Deck();
+    deck.shuffle();
+
+    let card = deck.deal();
+    let pileCounter = 0;
+
+    while(card !== undefined) {
+      let foundationPile = null;
+
+      switch(card.suit) {
+        case 'hearts':
+          foundationPile = heartsFoundation;
+          break;
+        case 'diamonds':
+          foundationPile = diamondsFoundation;
+          break;
+        case 'clubs':
+          foundationPile = clubsFoundation;
+          break;
+        case 'spades':
+          foundationPile = spadesFoundation;
+          break;
+      }
+
+      const lastCard = foundationPile[foundationPile.length - 1];
+
+      if (!lastCard.isOneLesser(card)) {
+        switch(pileCounter) {
+          case 0:
+            tempPile1.push(card);
+            break;
+          case 1:
+            tempPile2.push(card);
+            break;
+          case 2:
+            tempPile3.push(card);
+            break;
+          case 3:
+            tempPile4.push(card);
+            break;
+          case 4:
+            tempPile5.push(card);
+            break;
+          case 5:
+            tempPile6.push(card);
+            break;
+          case 6:
+            tempPile7.push(card);
+            break;
+          case 7:
+            tempPile8.push(card);
+            break;
+        }
+      } else {
+        foundationPile.push(card);
+      }
+
+      pileCounter += 1;
+      card = deck.deal();
+
+      if (pileCounter === 8) pileCounter = 0;
+    }
+
+    setFoundationPile1(heartsFoundation);
+    setFoundationPile2(diamondsFoundation);
+    setFoundationPile3(clubsFoundation);
+    setFoundationPile4(spadesFoundation);
+    setCardPile1(tempPile1);
+    setCardPile2(tempPile2);
+    setCardPile3(tempPile3);
+    setCardPile4(tempPile4);
+    setCardPile5(tempPile5);
+    setCardPile6(tempPile6);
+    setCardPile7(tempPile7);
+    setCardPile8(tempPile8);
+  };
 
   const dragEndHandler: DragEventHandler = ({ draggable, droppable }) => {
     if (!draggable || !droppable) return;
@@ -130,66 +227,13 @@ export function Tableau() {
     draggable.node.classList.add('dragging');
   };
 
-  createEffect(() => {
-    if (
-      foundationPile1().length === 1 &&
-      foundationPile2().length === 1 &&
-      foundationPile3().length === 1 &&
-      foundationPile4().length === 1 &&
-      cardPile1().length === 0 &&
-      cardPile2().length === 0 &&
-      cardPile3().length === 0 &&
-      cardPile4().length === 0 &&
-      cardPile5().length === 0 &&
-      cardPile6().length === 0 &&
-      cardPile7().length === 0 &&
-      cardPile8().length === 0
-    ) {
-      const deck = new Deck();
-      deck.shuffle();
+  const resetTableauxHandler = () => {
+    dialogMachine()?.close();
+    initTableaux();
+  };
 
-      let card = deck.deal();
-      let pileCounter = 0;
-
-      while(card !== undefined) {
-        const [, setter] = lastFoundationCardAndSetter().find(([lastCard]) => card && lastCard.isOneLesser(card) && lastCard.isSameSuit(card)) || [];
-        if (!setter) {
-          switch(pileCounter) {
-            case 0:
-              setCardPile1(addCard(card));
-              break;
-            case 1:
-              setCardPile2(addCard(card));
-              break;
-            case 2:
-              setCardPile3(addCard(card));
-              break;
-            case 3:
-              setCardPile4(addCard(card));
-              break;
-            case 4:
-              setCardPile5(addCard(card));
-              break;
-            case 5:
-              setCardPile6(addCard(card));
-              break;
-            case 6:
-              setCardPile7(addCard(card));
-              break;
-            case 7:
-              setCardPile8(addCard(card));
-              break;
-          }
-        } else {
-          setter && setter(addCard(card));
-        }
-
-        pileCounter += 1;
-        card = deck.deal();
-
-        if (pileCounter === 8) pileCounter = 0;
-      }
-    }
+  onMount(() => {
+    initTableaux();
   });
 
   createEffect(() => {
@@ -225,88 +269,95 @@ export function Tableau() {
       setTimeout(() => {
         areFoundationsAnimating().forEach((setter) => {
           setter(false);
+          dialogMachine()?.open();
         });
-      }, areFoundationsAnimating().length * VICTORY_ANIMATION_REMOVAL_TIME);
+      }, (areFoundationsAnimating().length - 2) * VICTORY_ANIMATION_REMOVAL_TIME);
     }
   });
 
   return (
-    <DragDropProvider onDragEnd={dragEndHandler} onDragStart={dragStartHandler}>
-      <DragDropSensors />
-      <div class="card-game-tableau">
-        <CardPile
-          cards={cardPile1()}
-          direction={DIRECTION_RTL}
-          id={CARD_PILE_1}
-          type={DROPPABLE_TYPE_CARDPILE}
-        />
-        <Foundation
-          cards={foundationPile1()}
-          id={FOUNDATION_PILE_1}
-          isAnimating={isFoundation1Animating()}
-          type={DROPPABLE_TYPE_FOUNDATION}
-        />
-        <CardPile
-          cards={cardPile5()}
-          direction={DIRECTION_LTR}
-          id={CARD_PILE_5}
-          type={DROPPABLE_TYPE_CARDPILE}
-        />
-        <CardPile
-          cards={cardPile2()}
-          direction={DIRECTION_RTL}
-          id={CARD_PILE_2}
-          type={DROPPABLE_TYPE_CARDPILE}
-        />
-        <Foundation
-          cards={foundationPile2()}
-          id={FOUNDATION_PILE_2}
-          isAnimating={isFoundation2Animating()}
-          type={DROPPABLE_TYPE_FOUNDATION}
-        />
-        <CardPile
-          cards={cardPile6()}
-          direction={DIRECTION_LTR}
-          id={CARD_PILE_6}
-          type={DROPPABLE_TYPE_CARDPILE}
-        />
-        <CardPile
-          cards={cardPile3()}
-          direction={DIRECTION_RTL}
-          id={CARD_PILE_3}
-          type={DROPPABLE_TYPE_CARDPILE}
-        />
-        <Foundation
-          cards={foundationPile3()}
-          id={FOUNDATION_PILE_3}
-          isAnimating={isFoundation3Animating()}
-          type={DROPPABLE_TYPE_FOUNDATION}
-        />
-        <CardPile
-          cards={cardPile7()}
-          direction={DIRECTION_LTR}
-          id={CARD_PILE_7}
-          type={DROPPABLE_TYPE_CARDPILE}
-        />
-        <CardPile
-          cards={cardPile4()}
-          direction={DIRECTION_RTL}
-          id={CARD_PILE_4}
-          type={DROPPABLE_TYPE_CARDPILE}
-        />
-        <Foundation
-          cards={foundationPile4()}
-          id={FOUNDATION_PILE_4}
-          isAnimating={isFoundation4Animating()}
-          type={DROPPABLE_TYPE_FOUNDATION}
-        />
-        <CardPile
-          cards={cardPile8()}
-          direction={DIRECTION_LTR}
-          id={CARD_PILE_8}
-          type={DROPPABLE_TYPE_CARDPILE}
-        />
-      </div>
-    </DragDropProvider>
+    <>
+      <DragDropProvider onDragEnd={dragEndHandler} onDragStart={dragStartHandler}>
+        <DragDropSensors />
+        <div class="card-game-tableau">
+          <CardPile
+            cards={cardPile1()}
+            direction={DIRECTION_RTL}
+            id={CARD_PILE_1}
+            type={DROPPABLE_TYPE_CARDPILE}
+          />
+          <Foundation
+            cards={foundationPile1()}
+            id={FOUNDATION_PILE_1}
+            isAnimating={isFoundation1Animating()}
+            type={DROPPABLE_TYPE_FOUNDATION}
+          />
+          <CardPile
+            cards={cardPile5()}
+            direction={DIRECTION_LTR}
+            id={CARD_PILE_5}
+            type={DROPPABLE_TYPE_CARDPILE}
+          />
+          <CardPile
+            cards={cardPile2()}
+            direction={DIRECTION_RTL}
+            id={CARD_PILE_2}
+            type={DROPPABLE_TYPE_CARDPILE}
+          />
+          <Foundation
+            cards={foundationPile2()}
+            id={FOUNDATION_PILE_2}
+            isAnimating={isFoundation2Animating()}
+            type={DROPPABLE_TYPE_FOUNDATION}
+          />
+          <CardPile
+            cards={cardPile6()}
+            direction={DIRECTION_LTR}
+            id={CARD_PILE_6}
+            type={DROPPABLE_TYPE_CARDPILE}
+          />
+          <CardPile
+            cards={cardPile3()}
+            direction={DIRECTION_RTL}
+            id={CARD_PILE_3}
+            type={DROPPABLE_TYPE_CARDPILE}
+          />
+          <Foundation
+            cards={foundationPile3()}
+            id={FOUNDATION_PILE_3}
+            isAnimating={isFoundation3Animating()}
+            type={DROPPABLE_TYPE_FOUNDATION}
+          />
+          <CardPile
+            cards={cardPile7()}
+            direction={DIRECTION_LTR}
+            id={CARD_PILE_7}
+            type={DROPPABLE_TYPE_CARDPILE}
+          />
+          <CardPile
+            cards={cardPile4()}
+            direction={DIRECTION_RTL}
+            id={CARD_PILE_4}
+            type={DROPPABLE_TYPE_CARDPILE}
+          />
+          <Foundation
+            cards={foundationPile4()}
+            id={FOUNDATION_PILE_4}
+            isAnimating={isFoundation4Animating()}
+            type={DROPPABLE_TYPE_FOUNDATION}
+          />
+          <CardPile
+            cards={cardPile8()}
+            direction={DIRECTION_LTR}
+            id={CARD_PILE_8}
+            type={DROPPABLE_TYPE_CARDPILE}
+          />
+        </div>
+      </DragDropProvider>
+      <PlayAgainModal
+        onReset={resetTableauxHandler}
+        machine={dialogMachine}
+      />
+    </>
   );
 }

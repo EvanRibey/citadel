@@ -22,6 +22,6 @@ export const FOUNDATION_PILES = [
 ];
 
 export const VICTORY_ANIMATION_DELAY = 100;
-export const VICTORY_ANIMATION_REMOVAL_TIME = 1000;
+export const VICTORY_ANIMATION_REMOVAL_TIME = 800;
 
 export const WINNING_PILE_LENGTH = 13;
