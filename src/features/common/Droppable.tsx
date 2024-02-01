@@ -1,25 +1,14 @@
 import { JSX } from 'solid-js';
-import { DroppableProps } from './types';
+import { createDroppable } from '@thisbeyond/solid-dnd';
+import type { DroppableProps } from './types';
+import type { Droppable } from '@/common/types';
 
 export function Droppable(props: DroppableProps): JSX.Element {
-  const handleDrop = (event: DragEvent) => {
-    event.preventDefault();
-    props.isDroppable && props.onDrop && props.onDrop();
-  };
-
-  const handleDragOver = (event: DragEvent) => {
-    event.preventDefault();
-    props.isDroppable && props.onDragOver && props.onDragOver();
-  };
-
-  const handleDragEnd = (event: DragEvent) => { event.preventDefault() };
+  // @ts-expect-error: Directive used below
+  const droppable = createDroppable(props.id);
 
   return (
-    <div
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
-    >
+    <div use:droppable>
       {props.children}
     </div>
   );

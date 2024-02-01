@@ -1,21 +1,22 @@
 import { For } from 'solid-js';
+import { Droppable } from '@/features/common';
 import { FoundationProps } from './types';
 import { Card } from '.';
 import './Foundation.css';
 
 export function Foundation(props: FoundationProps) {
   return (
-    <div class="card-game-foundation">
-      <For each={props.cards}>
-        {item => (
-          <Card
-            data={item}
-            isDraggable={item.value !== 'Ace'}
-            onDragEnd={props.onDragEnd}
-            onDragStart={props.onDragStart(item)}
-          />
-        )}
-      </For>
-    </div>
+    <Droppable id={props.id} type={props.type}>
+      <div class="card-game-foundation">
+        <For each={props.cards}>
+          {item => (
+            <Card
+              data={item}
+              isDraggable={item.value !== 'Ace'}
+            />
+          )}
+        </For>
+      </div>
+    </Droppable>
   );
 }

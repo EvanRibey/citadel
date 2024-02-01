@@ -2,11 +2,13 @@ import { CardValue, Suit } from '@/common/types';
 import cardImages from '@/assets/cards';
 
 export class Card {
+  id: string;
   suit: Suit;
   value: CardValue;
   image: string;
 
   constructor(suit: Suit, value: CardValue) {
+    this.id = `${suit}${value}`;
     this.suit = suit;
     this.value = value;
     this.image = this.getImage(suit, value);

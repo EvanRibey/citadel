@@ -1,16 +1,13 @@
 import { JSX } from 'solid-js';
-import { VoidFunction } from '@/common/types';
 
 export interface DraggableProps {
+  class?: string;
   children: JSX.Element;
-  isDraggable: boolean;
-  onDragStart?: VoidFunction;
-  onDragEnd?: VoidFunction;
+  id: string;
 }
 
 export interface DroppableProps {
   children: JSX.Element;
-  isDroppable?: boolean;
-  onDragOver?: VoidFunction;
-  onDrop?: VoidFunction;
+  id: string;
+  type: string;
 }
