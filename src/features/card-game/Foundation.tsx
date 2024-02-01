@@ -12,7 +12,6 @@ export function Foundation(props: FoundationProps) {
           {item => (
             <Card
               data={item}
-              isDraggable={item.value !== 'Ace'}
             />
           )}
         </For>

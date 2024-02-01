@@ -11,7 +11,6 @@ export interface CardPileProps {
 
 export interface CardProps {
   data: Card;
-  isDraggable: boolean;
   style?: JSX.CSSProperties;
 }
 
