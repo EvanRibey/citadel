@@ -89,7 +89,12 @@ export function Tableau() {
     const [originalPileGetter, originalPileSetter] = lastCardHash()[draggable.id] || [];
     const [newPileGetter, newPileSetter] = pilesHash()[droppable.id] || [];
 
-    if (!originalPileGetter || !originalPileSetter || !newPileGetter || !newPileSetter) return;
+    if (!originalPileGetter
+      || !originalPileSetter
+      || !newPileGetter
+      || !newPileSetter
+      || originalPileGetter === newPileGetter
+    ) return;
 
     const card = lastCard(originalPileGetter);
     const newPileLastCard = lastCard(newPileGetter);
