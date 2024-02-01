@@ -1,10 +1,27 @@
 import { Accessor, Setter, createEffect, createSignal } from 'solid-js';
+import { DragDropProvider, DragDropSensors, DragEventHandler } from '@thisbeyond/solid-dnd';
 import { DIRECTION_LTR, DIRECTION_RTL } from '@/common/constants';
 import { Card } from '@/common/classes/Card';
-import { Droppable } from '@/features/common';
-import { CardPile, Foundation } from '.';
-import './Tableau.css';
 import { Deck } from '@/common/classes/Deck';
+import { CardPile, Foundation } from '.';
+import {
+  DROPPABLE_TYPE_CARDPILE,
+  DROPPABLE_TYPE_FOUNDATION,
+  CARD_PILE_1,
+  CARD_PILE_2,
+  CARD_PILE_3,
+  CARD_PILE_4,
+  CARD_PILE_5,
+  CARD_PILE_6,
+  CARD_PILE_7,
+  CARD_PILE_8,
+  FOUNDATION_PILE_1,
+  FOUNDATION_PILE_2,
+  FOUNDATION_PILE_3,
+  FOUNDATION_PILE_4,
+  FOUNDATION_PILES,
+} from './constants';
+import './Tableau.css';
 
 export function Tableau() {
   const [cardPile1, setCardPile1] = createSignal<Card[]>([]);
@@ -21,20 +38,41 @@ export function Tableau() {
   const [foundationPile3, setFoundationPile3] = createSignal<Card[]>([new Card('clubs', 'Ace')]);
   const [foundationPile4, setFoundationPile4] = createSignal<Card[]>([new Card('spades', 'Ace')]);
 
-  const lastCardAndSetter: () => [Card | undefined, Setter<Card[]>][] = () => [
-    [cardPile1()[cardPile1().length - 1], setCardPile1],
-    [cardPile2()[cardPile2().length - 1], setCardPile2],
-    [cardPile3()[cardPile3().length - 1], setCardPile3],
-    [cardPile4()[cardPile4().length - 1], setCardPile4],
-    [cardPile5()[cardPile5().length - 1], setCardPile5],
-    [cardPile6()[cardPile6().length - 1], setCardPile6],
-    [cardPile7()[cardPile7().length - 1], setCardPile7],
-    [cardPile8()[cardPile8().length - 1], setCardPile8],
-    [foundationPile1()[foundationPile1().length - 1], setFoundationPile1],
-    [foundationPile2()[foundationPile2().length - 1], setFoundationPile2],
-    [foundationPile3()[foundationPile3().length - 1], setFoundationPile3],
-    [foundationPile4()[foundationPile4().length - 1], setFoundationPile4],
-  ];
+
+  const [moveToPile, setMoveToPile] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
+
+  const addCard = (nextCard: Card) => (cards: Card[]) => [...cards, nextCard];
+  const lastCard = (cards: Accessor<Card[]>) => cards()[cards().length - 1];
+
+  const lastCardHash: () => Record<string, [Accessor<Card[]>, Setter<Card[]>]> = () => ({
+    [lastCard(cardPile1).id]: [cardPile1, setCardPile1],
+    [lastCard(cardPile2).id]: [cardPile2, setCardPile2],
+    [lastCard(cardPile3).id]: [cardPile3, setCardPile3],
+    [lastCard(cardPile4).id]: [cardPile4, setCardPile4],
+    [lastCard(cardPile5).id]: [cardPile5, setCardPile5],
+    [lastCard(cardPile6).id]: [cardPile6, setCardPile6],
+    [lastCard(cardPile7).id]: [cardPile7, setCardPile7],
+    [lastCard(cardPile8).id]: [cardPile8, setCardPile8],
+    [lastCard(foundationPile1).id]: [foundationPile1, setFoundationPile1],
+    [lastCard(foundationPile2).id]: [foundationPile2, setFoundationPile2],
+    [lastCard(foundationPile3).id]: [foundationPile3, setFoundationPile3],
+    [lastCard(foundationPile4).id]: [foundationPile4, setFoundationPile4],
+  });
+
+  const pilesHash: () => Record<string, [Accessor<Card[]>, Setter<Card[]>]> = () => ({
+    [CARD_PILE_1]: [cardPile1, setCardPile1],
+    [CARD_PILE_2]: [cardPile2, setCardPile2],
+    [CARD_PILE_3]: [cardPile3, setCardPile3],
+    [CARD_PILE_4]: [cardPile4, setCardPile4],
+    [CARD_PILE_5]: [cardPile5, setCardPile5],
+    [CARD_PILE_6]: [cardPile6, setCardPile6],
+    [CARD_PILE_7]: [cardPile7, setCardPile7],
+    [CARD_PILE_8]: [cardPile8, setCardPile8],
+    [FOUNDATION_PILE_1]: [foundationPile1, setFoundationPile1],
+    [FOUNDATION_PILE_2]: [foundationPile2, setFoundationPile2],
+    [FOUNDATION_PILE_3]: [foundationPile3, setFoundationPile3],
+    [FOUNDATION_PILE_4]: [foundationPile4, setFoundationPile4],
+  });
 
   const lastFoundationCardAndSetter: () => [Card, Setter<Card[]>][] = () => [
     [foundationPile1()[foundationPile1().length - 1], setFoundationPile1],
@@ -43,43 +81,39 @@ export function Tableau() {
     [foundationPile4()[foundationPile4().length - 1], setFoundationPile4],
   ];
 
-  const [draggedCard, setDraggedCard] = createSignal<null | Card>(null);
-  const [moveToPile, setMoveToPile] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
-  const [moveToFoundation, setMoveToFoundation] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
+  const dragEndHandler: DragEventHandler = ({ draggable, droppable }) => {
+    if (!draggable || !droppable) return;
 
-  const addCard = (nextCard: Card) => (cards: Card[]) => [...cards, nextCard];
+    draggable.node.classList.remove('dragging');
 
-  const dragStartHandler = (playingCard: Card) => () => {
-    setDraggedCard(playingCard);
-  };
+    const [originalPileGetter, originalPileSetter] = lastCardHash()[draggable.id] || [];
+    const [newPileGetter, newPileSetter] = pilesHash()[droppable.id] || [];
 
-  const dragEndHandler = () => {
-    setDraggedCard(null);
-  };
+    if (!originalPileGetter
+      || !originalPileSetter
+      || !newPileGetter
+      || !newPileSetter
+      || originalPileGetter === newPileGetter
+    ) return;
 
-  const dropHandler = (cardPile: Accessor<Card[]>, cardPileSetter: Setter<Card[]>) => () => {
-    const [, setter] = lastCardAndSetter().find(([card]) => card === draggedCard()) || [];
-    const lastCard = cardPile()[cardPile().length - 1];
-    const card = draggedCard();
+    const card = lastCard(originalPileGetter);
+    const newPileLastCard = lastCard(newPileGetter);
 
-    if (setter && card && (lastCard === undefined || card.isOneLesser(lastCard))) {
-      setMoveToPile([draggedCard(), cardPileSetter, setter]);
-    }
-  };
-
-  const dropFoundationHandler = (cardPile: Accessor<Card[]>, cardPileSetter: Setter<Card[]>) => () => {
-    const [, setter] = lastCardAndSetter().find(([card]) => card === draggedCard()) || [];
-    const lastCard = cardPile()[cardPile().length - 1];
-    const card = draggedCard();
-
-    if (setter
+    if (
+      FOUNDATION_PILES.includes(String(droppable.id))
       && card !== null
-      && lastCard !== undefined
-      && lastCard.isOneLesser(card)
-      && lastCard.isSameSuit(card)
+      && newPileLastCard !== undefined
+      && newPileLastCard.isOneLesser(card)
+      && newPileLastCard.isSameSuit(card)
     ) {
-      setMoveToFoundation([draggedCard(), cardPileSetter, setter]);
+      setMoveToPile([card, newPileSetter, originalPileSetter]);
+    } else if (card && (newPileLastCard === undefined || card.isOneLesser(newPileLastCard))) {
+      setMoveToPile([card, newPileSetter, originalPileSetter]);
     }
+  };
+
+  const dragStartHandler: DragEventHandler = ({ draggable }) => {
+    draggable.node.classList.add('dragging');
   };
 
   createEffect(() => {
@@ -147,115 +181,85 @@ export function Tableau() {
   createEffect(() => {
     const [droppedCard, to, from] = moveToPile();
     if (droppedCard && from && to) {
-      from((cards: Card[]) => cards.slice(0, cards.length - 1));
+      from(cards => cards.slice(0, cards.length - 1));
       to(addCard(droppedCard));
       setMoveToPile([null, null, null]);
     }
   });
 
-  createEffect(() => {
-    const [droppedCard, to, from] = moveToFoundation();
-    if (droppedCard && from && to) {
-      from((cards: Card[]) => cards.slice(0, cards.length - 1));
-      to(addCard(droppedCard));
-      setMoveToFoundation([null, null, null]);
-    }
-  });
-
   return (
-    <div class="card-game-tableau">
-      <Droppable isDroppable onDrop={dropHandler(cardPile1, setCardPile1)}>
+    <DragDropProvider onDragEnd={dragEndHandler} onDragStart={dragStartHandler}>
+      <DragDropSensors />
+      <div class="card-game-tableau">
         <CardPile
           cards={cardPile1()}
           direction={DIRECTION_RTL}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+          id={CARD_PILE_1}
+          type={DROPPABLE_TYPE_CARDPILE}
         />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropFoundationHandler(foundationPile1, setFoundationPile1)}>
         <Foundation
           cards={foundationPile1()}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+          id={FOUNDATION_PILE_1}
+          type={DROPPABLE_TYPE_FOUNDATION}
         />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropHandler(cardPile2, setCardPile2)}>
-        <CardPile
-          cards={cardPile2()}
-          direction={DIRECTION_LTR}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
-        />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropHandler(cardPile3, setCardPile3)}>
-        <CardPile
-          cards={cardPile3()}
-          direction={DIRECTION_RTL}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
-        />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropFoundationHandler(foundationPile2, setFoundationPile2)}>
-        <Foundation
-          cards={foundationPile2()}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
-        />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropHandler(cardPile4, setCardPile4)}>
-        <CardPile
-          cards={cardPile4()}
-          direction={DIRECTION_LTR}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
-        />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropHandler(cardPile5, setCardPile5)}>
         <CardPile
           cards={cardPile5()}
+          direction={DIRECTION_LTR}
+          id={CARD_PILE_5}
+          type={DROPPABLE_TYPE_CARDPILE}
+        />
+        <CardPile
+          cards={cardPile2()}
           direction={DIRECTION_RTL}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+          id={CARD_PILE_2}
+          type={DROPPABLE_TYPE_CARDPILE}
         />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropFoundationHandler(foundationPile3, setFoundationPile3)}>
         <Foundation
-          cards={foundationPile3()}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+          cards={foundationPile2()}
+          id={FOUNDATION_PILE_2}
+          type={DROPPABLE_TYPE_FOUNDATION}
         />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropHandler(cardPile6, setCardPile6)}>
         <CardPile
           cards={cardPile6()}
           direction={DIRECTION_LTR}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+          id={CARD_PILE_6}
+          type={DROPPABLE_TYPE_CARDPILE}
         />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropHandler(cardPile7, setCardPile7)}>
+        <CardPile
+          cards={cardPile3()}
+          direction={DIRECTION_RTL}
+          id={CARD_PILE_3}
+          type={DROPPABLE_TYPE_CARDPILE}
+        />
+        <Foundation
+          cards={foundationPile3()}
+          id={FOUNDATION_PILE_3}
+          type={DROPPABLE_TYPE_FOUNDATION}
+        />
         <CardPile
           cards={cardPile7()}
-          direction={DIRECTION_RTL}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+          direction={DIRECTION_LTR}
+          id={CARD_PILE_7}
+          type={DROPPABLE_TYPE_CARDPILE}
         />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropFoundationHandler(foundationPile4, setFoundationPile4)}>
+        <CardPile
+          cards={cardPile4()}
+          direction={DIRECTION_RTL}
+          id={CARD_PILE_4}
+          type={DROPPABLE_TYPE_CARDPILE}
+        />
         <Foundation
           cards={foundationPile4()}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+          id={FOUNDATION_PILE_4}
+          type={DROPPABLE_TYPE_FOUNDATION}
         />
-      </Droppable>
-      <Droppable isDroppable onDrop={dropHandler(cardPile8, setCardPile8)}>
         <CardPile
           cards={cardPile8()}
           direction={DIRECTION_LTR}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+          id={CARD_PILE_8}
+          type={DROPPABLE_TYPE_CARDPILE}
         />
-      </Droppable>
-    </div>
+      </div>
+    </DragDropProvider>
   );
 }
