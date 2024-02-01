@@ -5,8 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-  background: url('@/assets/background.jpg');
+  background: radial-gradient(transparent 60%, #111), url('@/assets/background.jpg');
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
