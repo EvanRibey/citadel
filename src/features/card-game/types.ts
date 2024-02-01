@@ -23,7 +23,6 @@ export interface FoundationProps {
 }
 
 export interface PlayAgainModalProps {
-  isOpen: boolean;
-  onCloseModal: VoidFunction;
+  machine: Accessor<Api>;
   onReset: VoidFunction;
 }
