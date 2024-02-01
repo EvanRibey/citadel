@@ -7,7 +7,7 @@ import './Foundation.css';
 export function Foundation(props: FoundationProps) {
   return (
     <Droppable id={props.id} type={props.type}>
-      <div class="card-game-foundation">
+      <div class={`card-game-foundation ${props.isAnimating ? 'animate' : ''}`}>
         <For each={props.cards}>
           {item => (
             <Card

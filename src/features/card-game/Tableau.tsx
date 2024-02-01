@@ -20,6 +20,9 @@ import {
   FOUNDATION_PILE_3,
   FOUNDATION_PILE_4,
   FOUNDATION_PILES,
+  VICTORY_ANIMATION_REMOVAL_TIME,
+  VICTORY_ANIMATION_DELAY,
+  WINNING_PILE_LENGTH,
 } from './constants';
 import './Tableau.css';
 
@@ -38,25 +41,24 @@ export function Tableau() {
   const [foundationPile3, setFoundationPile3] = createSignal<Card[]>([new Card('clubs', 'Ace')]);
   const [foundationPile4, setFoundationPile4] = createSignal<Card[]>([new Card('spades', 'Ace')]);
 
-
   const [moveToPile, setMoveToPile] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
 
   const addCard = (nextCard: Card) => (cards: Card[]) => [...cards, nextCard];
   const lastCard = (cards: Accessor<Card[]>) => cards()[cards().length - 1];
 
   const lastCardHash: () => Record<string, [Accessor<Card[]>, Setter<Card[]>]> = () => ({
-    [lastCard(cardPile1).id]: [cardPile1, setCardPile1],
-    [lastCard(cardPile2).id]: [cardPile2, setCardPile2],
-    [lastCard(cardPile3).id]: [cardPile3, setCardPile3],
-    [lastCard(cardPile4).id]: [cardPile4, setCardPile4],
-    [lastCard(cardPile5).id]: [cardPile5, setCardPile5],
-    [lastCard(cardPile6).id]: [cardPile6, setCardPile6],
-    [lastCard(cardPile7).id]: [cardPile7, setCardPile7],
-    [lastCard(cardPile8).id]: [cardPile8, setCardPile8],
-    [lastCard(foundationPile1).id]: [foundationPile1, setFoundationPile1],
-    [lastCard(foundationPile2).id]: [foundationPile2, setFoundationPile2],
-    [lastCard(foundationPile3).id]: [foundationPile3, setFoundationPile3],
-    [lastCard(foundationPile4).id]: [foundationPile4, setFoundationPile4],
+    [lastCard(cardPile1)?.id]: [cardPile1, setCardPile1],
+    [lastCard(cardPile2)?.id]: [cardPile2, setCardPile2],
+    [lastCard(cardPile3)?.id]: [cardPile3, setCardPile3],
+    [lastCard(cardPile4)?.id]: [cardPile4, setCardPile4],
+    [lastCard(cardPile5)?.id]: [cardPile5, setCardPile5],
+    [lastCard(cardPile6)?.id]: [cardPile6, setCardPile6],
+    [lastCard(cardPile7)?.id]: [cardPile7, setCardPile7],
+    [lastCard(cardPile8)?.id]: [cardPile8, setCardPile8],
+    [lastCard(foundationPile1)?.id]: [foundationPile1, setFoundationPile1],
+    [lastCard(foundationPile2)?.id]: [foundationPile2, setFoundationPile2],
+    [lastCard(foundationPile3)?.id]: [foundationPile3, setFoundationPile3],
+    [lastCard(foundationPile4)?.id]: [foundationPile4, setFoundationPile4],
   });
 
   const pilesHash: () => Record<string, [Accessor<Card[]>, Setter<Card[]>]> = () => ({
@@ -79,6 +81,18 @@ export function Tableau() {
     [foundationPile2()[foundationPile2().length - 1], setFoundationPile2],
     [foundationPile3()[foundationPile3().length - 1], setFoundationPile3],
     [foundationPile4()[foundationPile4().length - 1], setFoundationPile4],
+  ];
+
+  const [isFoundation1Animating, setIsFoundation1Animating] = createSignal<boolean>(false);
+  const [isFoundation2Animating, setIsFoundation2Animating] = createSignal<boolean>(false);
+  const [isFoundation3Animating, setIsFoundation3Animating] = createSignal<boolean>(false);
+  const [isFoundation4Animating, setIsFoundation4Animating] = createSignal<boolean>(false);
+
+  const areFoundationsAnimating = () => [
+    setIsFoundation4Animating,
+    setIsFoundation3Animating,
+    setIsFoundation2Animating,
+    setIsFoundation1Animating,
   ];
 
   const dragEndHandler: DragEventHandler = ({ draggable, droppable }) => {
@@ -187,6 +201,35 @@ export function Tableau() {
     }
   });
 
+  createEffect(() => {
+    if (
+      foundationPile1().length === WINNING_PILE_LENGTH &&
+      foundationPile2().length === WINNING_PILE_LENGTH &&
+      foundationPile3().length === WINNING_PILE_LENGTH &&
+      foundationPile4().length === WINNING_PILE_LENGTH &&
+      cardPile1().length === 0 &&
+      cardPile2().length === 0 &&
+      cardPile3().length === 0 &&
+      cardPile4().length === 0 &&
+      cardPile5().length === 0 &&
+      cardPile6().length === 0 &&
+      cardPile7().length === 0 &&
+      cardPile8().length === 0
+    ) {
+      areFoundationsAnimating().forEach((setter, index) => {
+        setTimeout(() => {
+          setter(true);
+        }, VICTORY_ANIMATION_DELAY * index);
+      });
+
+      setTimeout(() => {
+        areFoundationsAnimating().forEach((setter) => {
+          setter(false);
+        });
+      }, areFoundationsAnimating().length * VICTORY_ANIMATION_REMOVAL_TIME);
+    }
+  });
+
   return (
     <DragDropProvider onDragEnd={dragEndHandler} onDragStart={dragStartHandler}>
       <DragDropSensors />
@@ -200,6 +243,7 @@ export function Tableau() {
         <Foundation
           cards={foundationPile1()}
           id={FOUNDATION_PILE_1}
+          isAnimating={isFoundation1Animating()}
           type={DROPPABLE_TYPE_FOUNDATION}
         />
         <CardPile
@@ -217,6 +261,7 @@ export function Tableau() {
         <Foundation
           cards={foundationPile2()}
           id={FOUNDATION_PILE_2}
+          isAnimating={isFoundation2Animating()}
           type={DROPPABLE_TYPE_FOUNDATION}
         />
         <CardPile
@@ -234,6 +279,7 @@ export function Tableau() {
         <Foundation
           cards={foundationPile3()}
           id={FOUNDATION_PILE_3}
+          isAnimating={isFoundation3Animating()}
           type={DROPPABLE_TYPE_FOUNDATION}
         />
         <CardPile
@@ -251,6 +297,7 @@ export function Tableau() {
         <Foundation
           cards={foundationPile4()}
           id={FOUNDATION_PILE_4}
+          isAnimating={isFoundation4Animating()}
           type={DROPPABLE_TYPE_FOUNDATION}
         />
         <CardPile

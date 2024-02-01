@@ -17,5 +17,6 @@ export interface CardProps {
 export interface FoundationProps {
   cards: Card[],
   id: string;
+  isAnimating?: boolean;
   type: string;
 }
