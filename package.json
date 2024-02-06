@@ -15,6 +15,7 @@
   "dependencies": {
     "@thisbeyond/solid-dnd": "^0.7.5",
     "@zag-js/dialog": "^0.34.0",
+    "@zag-js/popover": "^0.34.0",
     "@zag-js/solid": "^0.34.0",
     "solid-js": "^1.8.7"
   },

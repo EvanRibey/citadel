@@ -1,0 +1,90 @@
+[data-part="description"] {
+  font: 300 16px 'Signika', sans-serif;
+}
+
+[data-part="content"] {
+  background: white;
+  border-radius: 4px;
+  padding: 16px;
+  color: black;
+  border: 0;
+  position: relative;
+}
+
+[data-part="backdrop"] {
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+[data-scope="popover"] {
+  &[data-part="content"] {
+    padding: 12px;
+  }
+
+  &[data-part="close-trigger"] {
+    height: 20px;
+    width: 20px;
+    border: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 0;
+    background-color: transparent;
+
+    &:focus {
+      outline: 1px solid black;
+    }
+  }
+
+  &[data-part="title"] {
+    font: 500 20px 'Hind', sans-serif;
+    text-align: center;
+    margin: 0 0 8px;
+  }
+}
+
+[data-scope="dialog"] {
+  &[data-part="positioner"] {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &[data-part="content"] {
+    max-width: 500px;
+    padding: 20px;
+  }
+
+  &[data-part="title"] {
+    font: 600 26px 'Hind', sans-serif;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  &[data-part="close-trigger"] {
+    height: 20px;
+    width: 20px;
+    border: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 0;
+    outline: 1px solid black;
+    background-color: transparent;
+
+    &:hover {
+      outline: 1px solid black;
+    }
+  }
+}
