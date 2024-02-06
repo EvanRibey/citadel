@@ -4,6 +4,7 @@ import { Toolbar } from '@/features/toolbar';
 import type { Droppable, Draggable } from '@/common/types';
 import { RedealProvider } from './ShouldRedeal';
 import './App.css';
+import './zag.css';
 
 declare module 'solid-js' {
   namespace JSX {
