@@ -13,6 +13,7 @@ import { useMachine, normalizeProps } from '@zag-js/solid';
 import { DIRECTION_LTR, DIRECTION_RTL } from '@/common/constants';
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
+import { useRedeal } from '@/app/ShouldRedeal';
 import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,
@@ -37,8 +38,9 @@ import {
 import './Tableau.css';
 
 export function Tableau() {
+  const {shouldRedeal, willNotRedeal } = useRedeal() || {};
   const [machineState, machineSend] = useMachine(dialog.machine({ id: createUniqueId() }));
-  const dialogMachine = createMemo(() => dialog.connect(machineState, machineSend, normalizeProps));
+  const playAgainDialog = createMemo(() => dialog.connect(machineState, machineSend, normalizeProps));
 
   const [cardPile1, setCardPile1] = createSignal<Card[]>([]);
   const [cardPile2, setCardPile2] = createSignal<Card[]>([]);
@@ -228,12 +230,19 @@ export function Tableau() {
   };
 
   const resetTableauxHandler = () => {
-    dialogMachine()?.close();
+    playAgainDialog()?.close();
     initTableaux();
   };
 
   onMount(() => {
     initTableaux();
+  });
+
+  createEffect(() => {
+    if (shouldRedeal && shouldRedeal()) {
+      initTableaux();
+      willNotRedeal && willNotRedeal();
+    }
   });
 
   createEffect(() => {
@@ -269,7 +278,7 @@ export function Tableau() {
       setTimeout(() => {
         areFoundationsAnimating().forEach((setter) => {
           setter(false);
-          dialogMachine()?.open();
+          playAgainDialog()?.open();
         });
       }, (areFoundationsAnimating().length - 2) * VICTORY_ANIMATION_REMOVAL_TIME);
     }
@@ -356,7 +365,7 @@ export function Tableau() {
       </DragDropProvider>
       <PlayAgainModal
         onReset={resetTableauxHandler}
-        machine={dialogMachine}
+        machine={playAgainDialog}
       />
     </>
   );

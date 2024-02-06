@@ -8,3 +8,7 @@ export interface HowToPlayModalProps {
 export interface HowToPlayButtonProps {
   onClick: VoidFunction;
 }
+
+export interface RestartButtonProps {
+  onClick: VoidFunction;
+}
