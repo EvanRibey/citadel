@@ -15,6 +15,7 @@ export interface CardProps {
   data: Card;
   onDoubleClick?: VoidFunction;
   style?: JSX.CSSProperties;
+  direction?: string;
 }
 
 export interface FoundationProps {

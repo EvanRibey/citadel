@@ -2,12 +2,26 @@
   position: absolute;
   width: 100px;
   height: 150px;
+
+  &.dragging {
+    z-index: 1;
+  }
+
+  .card-image {
+    width: 100%;
+  }
 }
 
-.card-game-card.dragging {
-  z-index: 1;
+.card-game-card-tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  .suit {
+    height: 16px;
+  }
 }
 
-.card-game-card .card-image {
-  width: 100%;
-}
+
+
