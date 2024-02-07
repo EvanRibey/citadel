@@ -10,7 +10,7 @@ export function Modal(props: ModalProps) {
       <Portal>
         <div {...props.machine().backdropProps} />
         <div {...props.machine().positionerProps}>
-          <div {...props.machine().contentProps} class={`modal ${props.contentClass ? props.contentClass : ''}`}>
+          <div {...props.machine().contentProps}>
             {props.children}
             <Show when={props.showClose}>
               <button {...props.machine().closeTriggerProps} aria-label="close">

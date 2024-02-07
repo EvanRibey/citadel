@@ -12,11 +12,13 @@ export function PlayAgainModal(props: PlayAgainModalProps) {
   };
 
   return (
-    <Modal machine={props.machine} contentClass='card-game-play-again'>
-      <h2 {...props.machine().titleProps}>Play Again?</h2>
-      <div class="button-container">
-        <button class="yes-button button" onClick={clickYesHandler}>Yes</button>
-        <button class="no-button button" onClick={clickNoHandler}>No</button>
+    <Modal machine={props.machine}>
+      <div class="card-game-play-again">
+        <h2 {...props.machine().titleProps}>Play Again?</h2>
+        <div class="button-container">
+          <button class="yes-button button" onClick={clickYesHandler}>Yes</button>
+          <button class="no-button button" onClick={clickNoHandler}>No</button>
+        </div>
       </div>
     </Modal>
   );

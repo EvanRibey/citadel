@@ -17,5 +17,4 @@ export interface ModalProps {
   machine: Accessor<Api>;
   children: JSX.Element;
   showClose?: boolean;
-  contentClass?: string;
 }
