@@ -18,3 +18,11 @@ export interface ModalProps {
   children: JSX.Element;
   showClose?: boolean;
 }
+
+export interface IconButtonProps {
+  ariaLabel: string;
+  attributes?: JSX.HTMLAttributes<HTMLButtonElement>;
+  icon: string;
+  iconAlt: string;
+  onClick?: VoidFunction;
+}
