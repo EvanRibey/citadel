@@ -1,9 +1,17 @@
 import helpCircle from './help-circle.svg';
 import close from './x.svg';
 import refresh from './rotate-cw.svg';
+import spades from './spades.svg';
+import clubs from './clubs.svg';
+import diamonds from './diamonds.svg';
+import hearts from './hearts.svg';
 
 export {
   close,
   helpCircle,
   refresh,
+  spades,
+  hearts,
+  diamonds,
+  clubs,
 };

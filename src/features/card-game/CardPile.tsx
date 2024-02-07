@@ -28,6 +28,7 @@ export function CardPile(props: CardPileProps) {
                     left: props.direction === DIRECTION_LTR ? getOffset(index()) : 'auto',
                     right: props.direction === DIRECTION_RTL ? getOffset(index()) : 'auto',
                   }}
+                  direction={props.direction}
                 />
               )}
             >
