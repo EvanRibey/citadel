@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 import { Droppable } from '@/features/common';
-import { FoundationProps } from './types';
+import type { FoundationProps } from './types';
 import { Card } from '.';
 import './Foundation.css';
 
