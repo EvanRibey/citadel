@@ -1,4 +1,4 @@
-# :spades: Citadel Solitaire
+# :black_joker: Citadel Solitaire
 
 A different kind of a solitaire where you move cards one at a time from the piles to the foundations. The only catch being that you cannot move cards in groups, it is only one at a time. Built in a drag and drop manner using SolidJS and TypeScript.
 
