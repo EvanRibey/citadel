@@ -1,3 +1,4 @@
+import { Popover } from '@/features/common';
 import type { RestartPopoverProps } from './types';
 import './RestartPopover.css';
 
@@ -11,14 +12,14 @@ export function RestartPopover(props: RestartPopoverProps) {
   };
 
   return (
-    <div {...props.machine().positionerProps} class="restart-popover">
-      <div {...props.machine().contentProps}>
+    <Popover machine={props.machine}>
+      <div class="restart-popover">
         <h2 {...props.machine().titleProps}>New Game?</h2>
         <div class="button-container">
           <button class="yes" onClick={clickYesHandler}>Yes</button>
           <button class="no" onClick={clickNoHandler}>No</button>
         </div>
       </div>
-    </div>
+    </Popover>
   );
 }

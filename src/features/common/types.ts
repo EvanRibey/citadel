@@ -1,4 +1,5 @@
-import { Api } from '@zag-js/dialog';
+import { Api as DialogApi } from '@zag-js/dialog';
+import { Api as PopoverApi } from '@zag-js/popover';
 import { Accessor, JSX } from 'solid-js';
 
 export interface DraggableProps {
@@ -13,16 +14,21 @@ export interface DroppableProps {
   type: string;
 }
 
-export interface ModalProps {
-  machine: Accessor<Api>;
-  children: JSX.Element;
-  showClose?: boolean;
-}
-
 export interface IconButtonProps {
   ariaLabel: string;
   attributes?: JSX.HTMLAttributes<HTMLButtonElement>;
   icon: string;
   iconAlt: string;
   onClick?: VoidFunction;
+}
+
+export interface ModalProps {
+  children: JSX.Element;
+  machine: Accessor<DialogApi>;
+  showClose?: boolean;
+}
+
+export interface PopoverProps {
+  children: JSX.Element;
+  machine: Accessor<PopoverApi>;
 }
