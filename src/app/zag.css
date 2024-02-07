@@ -22,7 +22,7 @@
 
 [data-scope="popover"] {
   &[data-part="content"] {
-    padding: 12px;
+    padding: 12px 20px;
   }
 
   &[data-part="close-trigger"] {
@@ -66,7 +66,7 @@
   }
 
   &[data-part="title"] {
-    font: 600 26px 'Hind', sans-serif;
+    font: 500 26px 'Hind', sans-serif;
     text-align: center;
     margin-top: 0;
     margin-bottom: 16px;

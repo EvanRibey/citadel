@@ -16,8 +16,8 @@ export function RestartPopover(props: RestartPopoverProps) {
       <div class="restart-popover">
         <h2 {...props.machine().titleProps}>New Game?</h2>
         <div class="button-container">
-          <button class="yes" onClick={clickYesHandler}>Yes</button>
-          <button class="no" onClick={clickNoHandler}>No</button>
+          <button class="yes button" onClick={clickYesHandler}>Yes</button>
+          <button class="no button" onClick={clickNoHandler}>No</button>
         </div>
       </div>
     </Popover>
