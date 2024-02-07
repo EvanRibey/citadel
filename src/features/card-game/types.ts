@@ -7,11 +7,13 @@ export interface CardPileProps {
   cards: Card[];
   direction: Direction;
   id: string;
+  onDoubleClick?: (arg0: Card) => VoidFunction;
   type: string;
 }
 
 export interface CardProps {
   data: Card;
+  onDoubleClick?: VoidFunction;
   style?: JSX.CSSProperties;
 }
 

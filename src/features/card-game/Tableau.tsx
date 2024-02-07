@@ -10,7 +10,14 @@ import {
 import { DragDropProvider, DragDropSensors, DragEventHandler } from '@thisbeyond/solid-dnd';
 import * as dialog from '@zag-js/dialog';
 import { useMachine, normalizeProps } from '@zag-js/solid';
-import { DIRECTION_LTR, DIRECTION_RTL } from '@/common/constants';
+import {
+  DIRECTION_LTR,
+  DIRECTION_RTL,
+  SUIT_CLUBS,
+  SUIT_DIAMONDS,
+  SUIT_HEARTS,
+  SUIT_SPADES,
+} from '@/common/constants';
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
 import { useRedeal } from '@/app/ShouldRedeal';
@@ -59,7 +66,7 @@ export function Tableau() {
   const [moveToPile, setMoveToPile] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
 
   const addCard = (nextCard: Card) => (cards: Card[]) => [...cards, nextCard];
-  const lastCard = (cards: Accessor<Card[]>) => cards()[cards().length - 1];
+  const lastCard = (cards: Accessor<Card[]>): Card => cards()[cards().length - 1];
 
   const lastCardHash: () => Record<string, [Accessor<Card[]>, Setter<Card[]>]> = () => ({
     [lastCard(cardPile1)?.id]: [cardPile1, setCardPile1],
@@ -89,6 +96,13 @@ export function Tableau() {
     [FOUNDATION_PILE_2]: [foundationPile2, setFoundationPile2],
     [FOUNDATION_PILE_3]: [foundationPile3, setFoundationPile3],
     [FOUNDATION_PILE_4]: [foundationPile4, setFoundationPile4],
+  });
+
+  const suitHash: () => Record<string, [Accessor<Card[]>, Setter<Card[]>]> = () => ({
+    [SUIT_HEARTS]: [foundationPile1, setFoundationPile1],
+    [SUIT_DIAMONDS]: [foundationPile2, setFoundationPile2],
+    [SUIT_CLUBS]: [foundationPile3, setFoundationPile3],
+    [SUIT_SPADES]: [foundationPile4, setFoundationPile4],
   });
 
   const [isFoundation1Animating, setIsFoundation1Animating] = createSignal<boolean>(false);
@@ -229,6 +243,18 @@ export function Tableau() {
     draggable.node.classList.add('dragging');
   };
 
+  const doubleClickCardHandler = (card: Card) => () => {
+    const [, currentPileSetter] = lastCardHash()[card.id] || [];
+    const [foundationPile, foundationPileSetter] = suitHash()[card.suit] || [];
+
+    if (!foundationPile || !foundationPileSetter || !currentPileSetter) return;
+
+    const lastFoundationCard = lastCard(foundationPile);
+    if (lastFoundationCard.isOneLesser(card) && lastFoundationCard.isSameSuit(card)) {
+      setMoveToPile([card, foundationPileSetter, currentPileSetter]);
+    }
+  };
+
   const resetTableauxHandler = () => {
     playAgainDialog()?.close();
     initTableaux();
@@ -293,6 +319,7 @@ export function Tableau() {
             cards={cardPile1()}
             direction={DIRECTION_RTL}
             id={CARD_PILE_1}
+            onDoubleClick={doubleClickCardHandler}
             type={DROPPABLE_TYPE_CARDPILE}
           />
           <Foundation
@@ -305,12 +332,14 @@ export function Tableau() {
             cards={cardPile5()}
             direction={DIRECTION_LTR}
             id={CARD_PILE_5}
+            onDoubleClick={doubleClickCardHandler}
             type={DROPPABLE_TYPE_CARDPILE}
           />
           <CardPile
             cards={cardPile2()}
             direction={DIRECTION_RTL}
             id={CARD_PILE_2}
+            onDoubleClick={doubleClickCardHandler}
             type={DROPPABLE_TYPE_CARDPILE}
           />
           <Foundation
@@ -323,12 +352,14 @@ export function Tableau() {
             cards={cardPile6()}
             direction={DIRECTION_LTR}
             id={CARD_PILE_6}
+            onDoubleClick={doubleClickCardHandler}
             type={DROPPABLE_TYPE_CARDPILE}
           />
           <CardPile
             cards={cardPile3()}
             direction={DIRECTION_RTL}
             id={CARD_PILE_3}
+            onDoubleClick={doubleClickCardHandler}
             type={DROPPABLE_TYPE_CARDPILE}
           />
           <Foundation
@@ -341,12 +372,14 @@ export function Tableau() {
             cards={cardPile7()}
             direction={DIRECTION_LTR}
             id={CARD_PILE_7}
+            onDoubleClick={doubleClickCardHandler}
             type={DROPPABLE_TYPE_CARDPILE}
           />
           <CardPile
             cards={cardPile4()}
             direction={DIRECTION_RTL}
             id={CARD_PILE_4}
+            onDoubleClick={doubleClickCardHandler}
             type={DROPPABLE_TYPE_CARDPILE}
           />
           <Foundation
@@ -359,6 +392,7 @@ export function Tableau() {
             cards={cardPile8()}
             direction={DIRECTION_LTR}
             id={CARD_PILE_8}
+            onDoubleClick={doubleClickCardHandler}
             type={DROPPABLE_TYPE_CARDPILE}
           />
         </div>

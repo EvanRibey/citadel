@@ -7,8 +7,17 @@ export function Card(props: CardProps): JSX.Element {
   // @ts-expect-error: Directive used below
   const draggable = createDraggable(props.data.id);
 
+  const doubleClickHandler = () => {
+    props.onDoubleClick && props.onDoubleClick();
+  };
+
   return (
-    <div use:draggable class="card-game-card" style={props.style}>
+    <div
+      use:draggable
+      class="card-game-card"
+      onDblClick={doubleClickHandler}
+      style={props.style}
+    >
       <img
         alt={`${props.data.value} of ${props.data.suit}`}
         class="card-image"
