@@ -1,5 +1,5 @@
 import { helpCircle } from '@/assets/icons';
-import { HowToPlayButtonProps } from './types';
+import type { HowToPlayButtonProps } from './types';
 import './HowToPlayButton.css';
 
 export function HowToPlayButton(props: HowToPlayButtonProps) {

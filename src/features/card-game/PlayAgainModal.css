@@ -1,62 +1,29 @@
 .card-game-play-again {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card-game-play-again-backdrop {
-  background: rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-.card-game-play-again .content {
-  background: white;
   width: 230px;
-  border-radius: 4px;
-  padding: 20px;
-  color: black;
-  border: 0;
-}
 
-.card-game-play-again .title {
-  font: 600 26px 'Hind', sans-serif;
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 16px;
-}
+  .button-container {
+    text-align: center;
+  }
 
-.card-game-play-again .button-container {
-  text-align: center;
-}
+  .button {
+    font: 400 16px 'Signika', sans-serif;
+    border: 0;
+  }
 
-.card-game-play-again .button {
-  font: 400 16px 'Signika', sans-serif;
-  border: 0;
-}
+  .no-button {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    background: transparent;
+  }
 
-.card-game-play-again .no-button {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  background: transparent;
-}
+  .yes-button {
+    background-color: #2ad57b;
+    color: white;
+    margin-right: 8px;
+    padding: 8px 16px;
 
-.card-game-play-again .yes-button {
-  background-color: #2ad57b;
-  color: white;
-  margin-right: 8px;
-  padding: 8px 16px;
-}
-
-.card-game-play-again .yes-button:hover {
-  background-color: #21de84;
+    &:hover {
+      background-color: #21de84;
+    }
+  }
 }
