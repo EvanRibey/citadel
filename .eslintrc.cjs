@@ -28,6 +28,8 @@ module.exports = {
     '@stylistic/quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
     '@stylistic/semi': ['error', 'always', { 'omitLastInOneLineBlock': true}],
     '@typescript-eslint/no-namespace': 'off',
+    'no-empty-function': ['error', { 'allow': ['arrowFunctions'] }],
+    '@typescript-eslint/no-empty-function': ['error', { 'allow': ['arrowFunctions'] }],
   },
   'root': true,
 };

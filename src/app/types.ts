@@ -14,6 +14,8 @@ export interface RedealerProvider {
 export interface Setting {
   module: string;
   enabled: boolean;
+  name?: string;
+  description?: string;
 }
 
 export interface SettingsProviderProps {
@@ -22,6 +24,7 @@ export interface SettingsProviderProps {
 
 export interface SettingsProvider {
   settings: Setting[];
-  enableSetting: (arg0: string) => void;
-  disableSetting: (arg0: string) => void;
+  enableSetting: ((arg0: string) => void) | VoidFunction;
+  disableSetting: ((arg0: string) => void) | VoidFunction;
+  getSetting: ((arg0: string) => Setting | Record<PropertyKey, never>) | (() => Record<PropertyKey, never>);
 }

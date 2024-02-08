@@ -1,2 +1,7 @@
-.toolbar-settings {
+.settings-popover {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 12px;
+  width: 250px;
+  padding: 8px 0;
 }
