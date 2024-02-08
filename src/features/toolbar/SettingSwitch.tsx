@@ -17,12 +17,12 @@ export function SettingSwitch(props: SettingSwitchProps) {
   return (
     <>
       <div class="setting-switch-descriptor">
-        <p class="name">{props.setting.name}</p>
+        <p id={props.setting.module} class="name">{props.setting.name}</p>
         <p class="descriptor">{props.setting.description || ''}</p>
       </div>
       <div class="setting-switch-toggle">
         <label {...switchMachine().rootProps}>
-          <input {...switchMachine().hiddenInputProps} />
+          <input {...switchMachine().hiddenInputProps} aria-labelledby={props.setting.module} />
           <span {...switchMachine().controlProps}>
             <span {...switchMachine().thumbProps} />
           </span>
