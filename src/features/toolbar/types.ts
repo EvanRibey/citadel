@@ -10,3 +10,7 @@ export interface RestartPopoverProps {
   machine: Accessor<PopoverApi>;
   onRestart: VoidFunction;
 }
+
+export interface SettingsPopoverProps {
+  machine: Accessor<PopoverApi>;
+}

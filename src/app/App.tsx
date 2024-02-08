@@ -3,6 +3,7 @@ import { Tableau } from '@/features/card-game';
 import { Toolbar } from '@/features/toolbar';
 import type { Droppable, Draggable } from '@/common/types';
 import { RedealProvider } from './ShouldRedeal';
+import { SettingsProvider } from './Settings';
 import './App.css';
 import './zag.css';
 
@@ -17,12 +18,14 @@ declare module 'solid-js' {
 
 function App() {
   return (
-    <RedealProvider shouldRedeal={false}>
-      <>
-        <Tableau />
-        <Toolbar />
-      </>
-    </RedealProvider>
+    <SettingsProvider>
+      <RedealProvider shouldRedeal={false}>
+        <>
+          <Tableau />
+          <Toolbar />
+        </>
+      </RedealProvider>
+    </SettingsProvider>
   );
 }
 
