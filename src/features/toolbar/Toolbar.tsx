@@ -10,7 +10,7 @@ import './Toolbar.css';
 import { SettingsPopover } from './SettingsPopover';
 
 export function Toolbar() {
-  const { willRedeal } = useRedeal() || {};
+  const { willRedeal } = useRedeal();
 
   const [howToMachineState, howToMachineSend] = useMachine(dialog.machine({ id: createUniqueId() }));
   const [restartMachineState, restartMachineSend] = useMachine(popover.machine({ id: createUniqueId() }));
@@ -21,7 +21,7 @@ export function Toolbar() {
   const settingsPopoverMachine = createMemo(() => popover.connect(settingsMachineState, settingsMachineSend, normalizeProps));
 
   const clickRestartHandler = () => {
-    willRedeal && willRedeal();
+    willRedeal();
     restartPopoverMachine().close();
   };
 

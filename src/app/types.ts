@@ -6,7 +6,7 @@ export interface RedealProviderProps {
 }
 
 export interface RedealerProvider {
-  shouldRedeal: Accessor<boolean>;
+  shouldRedeal: Accessor<boolean> | (() => boolean);
   willRedeal: VoidFunction; 
   willNotRedeal: VoidFunction;
 }
@@ -23,8 +23,8 @@ export interface SettingsProviderProps {
 }
 
 export interface SettingsProvider {
-  settings: Setting[];
+  settings: () => Setting[];
   enableSetting: ((arg0: string) => void) | VoidFunction;
   disableSetting: ((arg0: string) => void) | VoidFunction;
-  getSetting: ((arg0: string) => Setting | Record<PropertyKey, never>) | (() => Record<PropertyKey, never>);
+  isModuleEnabled: ((arg0: string) => boolean) | (() => boolean);
 }

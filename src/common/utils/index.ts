@@ -1,1 +1,1 @@
-export * from './createStorageStore';
+export * from './createStorageSignal';

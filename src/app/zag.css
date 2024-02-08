@@ -102,7 +102,7 @@
   --switch-track-width: 40px;
   --switch-bg: #000;
   --switch-fg: #fff;
-  --switch-bg-checked: green;
+  --switch-bg-checked: #009E50;
   --switch-track-diff: calc(var(--switch-track-width) - var(--switch-track-height));
   --switch-thumb-x: var(--switch-track-diff);
 
