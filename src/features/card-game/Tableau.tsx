@@ -21,6 +21,8 @@ import {
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
 import { useRedeal } from '@/app/ShouldRedeal';
+import { useSettings } from '@/app/Settings';
+import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/app/constants';
 import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,
@@ -45,7 +47,12 @@ import {
 import './Tableau.css';
 
 export function Tableau() {
-  const {shouldRedeal, willNotRedeal } = useRedeal() || {};
+  const { shouldRedeal, willNotRedeal } = useRedeal();
+  const { isModuleEnabled } = useSettings();
+
+  const [isDoubleClickEnabled, setIsDoubleClickEnabled] = createSignal<boolean>(isModuleEnabled(SETTING_DOUBLECLICK_CARD));
+  const [isBesiegedCastleEnabled, setIsBesiegedCastleEnabled] = createSignal<boolean>(isModuleEnabled(SETTING_BESIEGED_CASTLE));
+
   const [machineState, machineSend] = useMachine(dialog.machine({ id: createUniqueId() }));
   const playAgainDialog = createMemo(() => dialog.connect(machineState, machineSend, normalizeProps));
 
@@ -157,7 +164,7 @@ export function Tableau() {
 
       const lastCard = foundationPile[foundationPile.length - 1];
 
-      if (!lastCard.isOneLesser(card)) {
+      if (!lastCard.isOneLesser(card) || isBesiegedCastleEnabled()) {
         switch(pileCounter) {
           case 0:
             tempPile1.push(card);
@@ -244,6 +251,8 @@ export function Tableau() {
   };
 
   const doubleClickCardHandler = (card: Card) => () => {
+    if (!isDoubleClickEnabled()) return;
+
     const [, currentPileSetter] = lastCardHash()[card.id] || [];
     const [foundationPile, foundationPileSetter] = suitHash()[card.suit] || [];
 
@@ -265,9 +274,14 @@ export function Tableau() {
   });
 
   createEffect(() => {
-    if (shouldRedeal && shouldRedeal()) {
+    setIsDoubleClickEnabled(isModuleEnabled(SETTING_DOUBLECLICK_CARD));
+    setIsBesiegedCastleEnabled(isModuleEnabled(SETTING_BESIEGED_CASTLE));
+  });
+
+  createEffect(() => {
+    if (shouldRedeal()) {
       initTableaux();
-      willNotRedeal && willNotRedeal();
+      willNotRedeal();
     }
   });
 

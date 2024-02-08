@@ -5,6 +5,7 @@ import spades from './spades.svg';
 import clubs from './clubs.svg';
 import diamonds from './diamonds.svg';
 import hearts from './hearts.svg';
+import settings from './settings.svg';
 
 export {
   close,
@@ -14,4 +15,5 @@ export {
   hearts,
   diamonds,
   clubs,
+  settings,
 };

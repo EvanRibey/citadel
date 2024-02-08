@@ -1,0 +1,21 @@
+.setting-switch-descriptor {
+  .name {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .descriptor {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 300;
+    margin: 0;
+  }
+}
+
+.setting-switch-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

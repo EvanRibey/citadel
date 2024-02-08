@@ -1,7 +1,11 @@
 import { createSignal, createContext, useContext } from 'solid-js';
 import type { RedealProviderProps, RedealerProvider } from './types';
 
-const RedealContext = createContext<RedealerProvider>();
+const RedealContext = createContext<RedealerProvider>({
+  shouldRedeal: () => false,
+  willRedeal: () => {},
+  willNotRedeal: () => {},
+});
 
 export function RedealProvider(props: RedealProviderProps) {
   const [shouldRedeal, setShouldRedeal] = createSignal<boolean>(props.shouldRedeal || false);
