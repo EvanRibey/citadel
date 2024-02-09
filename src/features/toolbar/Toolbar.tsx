@@ -2,12 +2,10 @@ import { createMemo, createUniqueId } from 'solid-js';
 import * as dialog from '@zag-js/dialog';
 import * as popover from '@zag-js/popover';
 import { useMachine, normalizeProps } from '@zag-js/solid';
-import { useRedeal } from '@/app/ShouldRedeal';
 import { IconButton } from '@/features/common';
 import { helpCircle, refresh, settings } from '@/assets/icons';
-import { HowToPlayModal, RestartPopover } from '.';
+import { HowToPlayModal, SettingsPopover, RestartPopover, useRedeal } from '.';
 import './Toolbar.css';
-import { SettingsPopover } from './SettingsPopover';
 
 export function Toolbar() {
   const { willRedeal } = useRedeal();

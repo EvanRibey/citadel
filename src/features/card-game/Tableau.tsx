@@ -20,9 +20,9 @@ import {
 } from '@/common/constants';
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
-import { useRedeal } from '@/app/ShouldRedeal';
-import { useSettings } from '@/app/Settings';
-import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/app/constants';
+import { useRedeal } from '@/features/toolbar';
+import { useSettings } from '@/features/settings';
+import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/features/settings/constants';
 import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,
