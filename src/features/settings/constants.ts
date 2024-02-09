@@ -2,10 +2,12 @@ import { Setting } from './types';
 
 export const SETTING_BESIEGED_CASTLE = 'besiegedCastle';
 export const SETTING_DOUBLECLICK_CARD = 'doubleClickCard';
+export const SETTING_FOUNDATION_MOVE = 'foundationMove';
 
 export const DEFAULT_SETTINGS: Record<string, boolean> = {
   [SETTING_BESIEGED_CASTLE]: false,
   [SETTING_DOUBLECLICK_CARD]: true,
+  [SETTING_FOUNDATION_MOVE]: true,
 };
 
 export const SETTING_DESCRIPTORS: Record<string, Partial<Setting>> = {
@@ -16,6 +18,10 @@ export const SETTING_DESCRIPTORS: Record<string, Partial<Setting>> = {
   [SETTING_DOUBLECLICK_CARD]: {
     name: 'Double Click',
     description: 'Clicking a card twice will move it to the foundation (if it can)',
+  },
+  [SETTING_FOUNDATION_MOVE]: {
+    name: 'Move From Foundations',
+    description: 'Allow movement from foundations to outside card piles',
   },
 };
 

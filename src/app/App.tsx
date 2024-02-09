@@ -2,8 +2,8 @@ import 'solid-js';
 import { Tableau } from '@/features/card-game';
 import { Toolbar } from '@/features/toolbar';
 import type { Droppable, Draggable } from '@/common/types';
-import { RedealProvider } from './ShouldRedeal';
-import { SettingsProvider } from './Settings';
+import { SettingsProvider } from '@/features/settings';
+import { RedealProvider } from '@/features/toolbar';
 import './App.css';
 import './zag.css';
 

@@ -20,9 +20,9 @@ import {
 } from '@/common/constants';
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
-import { useRedeal } from '@/app/ShouldRedeal';
-import { useSettings } from '@/app/Settings';
-import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/app/constants';
+import { useRedeal } from '@/features/toolbar';
+import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/features/settings/constants';
+import { isSettingEnabled } from '@/features/settings/utils';
 import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,
@@ -48,10 +48,9 @@ import './Tableau.css';
 
 export function Tableau() {
   const { shouldRedeal, willNotRedeal } = useRedeal();
-  const { isModuleEnabled } = useSettings();
 
-  const [isDoubleClickEnabled, setIsDoubleClickEnabled] = createSignal<boolean>(isModuleEnabled(SETTING_DOUBLECLICK_CARD));
-  const [isBesiegedCastleEnabled, setIsBesiegedCastleEnabled] = createSignal<boolean>(isModuleEnabled(SETTING_BESIEGED_CASTLE));
+  const isDoubleClickEnabled = isSettingEnabled(SETTING_DOUBLECLICK_CARD);
+  const isBesiegedCastleEnabled = isSettingEnabled(SETTING_BESIEGED_CASTLE);
 
   const [machineState, machineSend] = useMachine(dialog.machine({ id: createUniqueId() }));
   const playAgainDialog = createMemo(() => dialog.connect(machineState, machineSend, normalizeProps));
@@ -271,11 +270,6 @@ export function Tableau() {
 
   onMount(() => {
     initTableaux();
-  });
-
-  createEffect(() => {
-    setIsDoubleClickEnabled(isModuleEnabled(SETTING_DOUBLECLICK_CARD));
-    setIsBesiegedCastleEnabled(isModuleEnabled(SETTING_BESIEGED_CASTLE));
   });
 
   createEffect(() => {

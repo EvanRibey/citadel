@@ -1,15 +1,4 @@
-import { Accessor, JSX } from 'solid-js';
-
-export interface RedealProviderProps {
-  shouldRedeal: boolean;
-  children: JSX.Element;
-}
-
-export interface RedealerProvider {
-  shouldRedeal: Accessor<boolean> | (() => boolean);
-  willRedeal: VoidFunction; 
-  willNotRedeal: VoidFunction;
-}
+import { JSX } from 'solid-js';
 
 export interface Setting {
   module: string;

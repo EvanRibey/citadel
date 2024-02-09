@@ -18,6 +18,10 @@ export interface CardProps {
   direction?: string;
 }
 
+export interface EmptyCardProps extends CardProps {
+  showTooltip?: boolean;
+}
+
 export interface FoundationProps {
   cards: Card[],
   id: string;
