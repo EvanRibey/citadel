@@ -1,3 +1,5 @@
+import { EmptyCardProps } from './types';
+
 export const DROPPABLE_TYPE_CARDPILE = 'cardPile';
 export const DROPPABLE_TYPE_FOUNDATION = 'foundation';
 
@@ -25,3 +27,7 @@ export const VICTORY_ANIMATION_DELAY = 100;
 export const VICTORY_ANIMATION_REMOVAL_TIME = 800;
 
 export const WINNING_PILE_LENGTH = 13;
+
+export const EMPTY_CARD_DEFAULT_PROPS: Partial<EmptyCardProps> = {
+  showTooltip: true,
+};

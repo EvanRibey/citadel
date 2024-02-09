@@ -1,15 +1,18 @@
-import { createMemo, createUniqueId, JSX, Show } from 'solid-js';
+import { createMemo, createUniqueId, JSX, mergeProps, Show } from 'solid-js';
 import * as tooltip from '@zag-js/tooltip';
 import { normalizeProps, useMachine } from '@zag-js/solid';
 import { DIRECTION_LTR } from '@/common/constants';
-import type { CardProps } from './types';
+import type { EmptyCardProps } from './types';
 import './Card.css';
+import { EMPTY_CARD_DEFAULT_PROPS } from './constants';
 
-export function EmptyCard(props: CardProps): JSX.Element {
+export function EmptyCard(props: EmptyCardProps): JSX.Element {
+  const mergedProps = mergeProps(EMPTY_CARD_DEFAULT_PROPS, props);
+
   const [state, send] = useMachine(tooltip.machine({
     id: createUniqueId(),
     positioning: {
-      placement: props.direction === DIRECTION_LTR ? 'left' : 'right',
+      placement: mergedProps.direction === DIRECTION_LTR ? 'left' : 'right',
     },
   }));
 
@@ -21,18 +24,18 @@ export function EmptyCard(props: CardProps): JSX.Element {
     <>
       <div {...divProps} class="card-game-card" style={props.style}>
         <img
-          alt={`${props.data.value} of ${props.data.suit}`}
+          alt={`${mergedProps.data.value} of ${mergedProps.data.suit}`}
           class="card-image"
-          src={props.data.image}
+          src={mergedProps.data.image}
           draggable="false"
         />
       </div>
-      <Show when={api().isOpen}>
+      <Show when={api().isOpen && mergedProps.showTooltip}>
         <div {...api().positionerProps}>
           <div {...api().contentProps}>
             <div class="card-game-card-tooltip">
-              <img class="suit" src={props.data.suitImage} alt={props.data.suit} />
-              {props.data.shortValue}
+              <img class="suit" src={mergedProps.data.suitImage} alt={mergedProps.data.suit} />
+              {mergedProps.data.shortValue}
             </div>
           </div>
         </div>

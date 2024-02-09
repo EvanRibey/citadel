@@ -16,7 +16,7 @@ export function SettingsProvider(props: SettingsProviderProps) {
     return Object.keys({ ...DEFAULT_SETTINGS, ...settings()}).map(key => ({
       ...(SETTING_DESCRIPTORS[key] || {}),
       module: key,
-      enabled: !!settings()[key],
+      enabled: key in settings() ? settings()[key] : DEFAULT_SETTINGS[key],
     }));
   };
 
