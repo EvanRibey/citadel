@@ -1,10 +1,10 @@
+import { Show } from 'solid-js';
 import { Modal } from '@/features/common';
+import { useStatistics } from '@/features/settings';
+import { isSettingEnabled } from '@/features/settings/utils';
+import { SETTING_MOVE_COUNT } from '@/features/settings/constants';
 import type { PlayAgainModalProps } from './types';
 import './PlayAgainModal.css';
-import { useStatistics } from '../settings';
-import { isSettingEnabled } from '../settings/utils';
-import { SETTING_MOVE_COUNT } from '../settings/constants';
-import { Show } from 'solid-js';
 
 export function PlayAgainModal(props: PlayAgainModalProps) {
   const { moveCount } = useStatistics();
