@@ -1,4 +1,4 @@
-import { JSX } from 'solid-js';
+import type { JSX } from 'solid-js';
 import { createDroppable } from '@thisbeyond/solid-dnd';
 import type { DroppableProps } from './types';
 import type { Droppable } from '@/common/types';

@@ -1,13 +1,15 @@
-import {
+import type {
   Accessor,
-  Setter,
+  Setter} from 'solid-js';
+import {
   createEffect,
   createMemo,
   createSignal,
   createUniqueId,
   onMount,
 } from 'solid-js';
-import { DragDropProvider, DragDropSensors, DragEventHandler } from '@thisbeyond/solid-dnd';
+import type { DragEventHandler } from '@thisbeyond/solid-dnd';
+import { DragDropProvider, DragDropSensors } from '@thisbeyond/solid-dnd';
 import * as dialog from '@zag-js/dialog';
 import { useMachine, normalizeProps } from '@zag-js/solid';
 import {

@@ -1,4 +1,4 @@
-import { Accessor, JSX } from 'solid-js';
+import type { Accessor, JSX } from 'solid-js';
 
 export interface Setting {
   module: string;

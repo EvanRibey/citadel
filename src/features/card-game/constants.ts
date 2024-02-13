@@ -1,4 +1,4 @@
-import { EmptyCardProps } from './types';
+import type { EmptyCardProps } from './types';
 
 export const DROPPABLE_TYPE_CARDPILE = 'cardPile';
 export const DROPPABLE_TYPE_FOUNDATION = 'foundation';

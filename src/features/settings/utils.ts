@@ -1,4 +1,5 @@
-import { Accessor, createEffect, createSignal } from 'solid-js';
+import type { Accessor} from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 import { useSettings } from './Settings';
 
 export function isSettingEnabled(moduleId: string): Accessor<boolean> {

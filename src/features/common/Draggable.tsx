@@ -1,4 +1,4 @@
-import { JSX } from 'solid-js';
+import type { JSX } from 'solid-js';
 import { createDraggable } from '@thisbeyond/solid-dnd';
 import type { DraggableProps } from './types';
 import type { Draggable } from '@/common/types';

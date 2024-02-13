@@ -1,4 +1,4 @@
-import { Setting } from './types';
+import type { Setting } from './types';
 
 export const SETTING_BESIEGED_CASTLE = 'besiegedCastle';
 export const SETTING_DOUBLECLICK_CARD = 'doubleClickCard';

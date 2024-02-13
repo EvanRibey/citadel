@@ -1,4 +1,4 @@
-import { CardValue, Suit } from '@/common/types';
+import type { CardValue, Suit } from '@/common/types';
 import cardImages from '@/assets/cards';
 import { clubs, diamonds, hearts, spades } from '@/assets/icons';
 
