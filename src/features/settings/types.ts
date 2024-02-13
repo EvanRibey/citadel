@@ -1,4 +1,4 @@
-import { JSX } from 'solid-js';
+import { Accessor, JSX } from 'solid-js';
 
 export interface Setting {
   module: string;
@@ -16,4 +16,15 @@ export interface SettingsProvider {
   enableSetting: ((arg0: string) => void) | VoidFunction;
   disableSetting: ((arg0: string) => void) | VoidFunction;
   isModuleEnabled: ((arg0: string) => boolean) | (() => boolean);
+}
+
+export interface StatisticsProviderProps {
+  children: JSX.Element;
+  moveCount: number;
+}
+
+export interface StatisticsProvider {
+  moveCount: Accessor<number> | (() => number);
+  addMove: VoidFunction;
+  resetMoveCount: VoidFunction;
 }

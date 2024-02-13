@@ -23,6 +23,7 @@ import { Deck } from '@/common/classes/Deck';
 import { useRedeal } from '@/features/toolbar';
 import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/features/settings/constants';
 import { isSettingEnabled } from '@/features/settings/utils';
+import { useStatistics } from '@/features/settings';
 import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,
@@ -48,6 +49,7 @@ import './Tableau.css';
 
 export function Tableau() {
   const { shouldRedeal, willNotRedeal } = useRedeal();
+  const { addMove, resetMoveCount } = useStatistics();
 
   const isDoubleClickEnabled = isSettingEnabled(SETTING_DOUBLECLICK_CARD);
   const isBesiegedCastleEnabled = isSettingEnabled(SETTING_BESIEGED_CASTLE);
@@ -276,6 +278,7 @@ export function Tableau() {
     if (shouldRedeal()) {
       initTableaux();
       willNotRedeal();
+      resetMoveCount();
     }
   });
 
@@ -285,6 +288,8 @@ export function Tableau() {
       from(cards => cards.slice(0, cards.length - 1));
       to(addCard(droppedCard));
       setMoveToPile([null, null, null]);
+
+      addMove();
     }
   });
 

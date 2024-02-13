@@ -32,3 +32,6 @@ export interface RedealerProvider {
   willNotRedeal: VoidFunction;
 }
 
+export interface StatisticsDisplayProps {
+  isVisible: boolean;
+}
