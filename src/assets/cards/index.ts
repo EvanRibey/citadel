@@ -50,7 +50,7 @@ import spades10 from '@/assets/cards/spades/10.svg';
 import spadesJack from '@/assets/cards/spades/jack.svg';
 import spadesQueen from '@/assets/cards/spades/queen.svg';
 import spadesKing from '@/assets/cards/spades/king.svg';
-import { CardImages } from './types';
+import type { CardImages } from './types';
 
 export default {
   diamondsAce,

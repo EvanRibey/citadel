@@ -1,4 +1,4 @@
-import { PopoverProps } from './types';
+import type { PopoverProps } from './types';
 
 export function Popover(props: PopoverProps) {
   return (

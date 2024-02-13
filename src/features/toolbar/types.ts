@@ -1,6 +1,6 @@
-import { Api as DialogApi } from '@zag-js/dialog';
-import { Api as PopoverApi } from '@zag-js/popover';
-import { Accessor, JSX } from 'solid-js';
+import type { Api as DialogApi } from '@zag-js/dialog';
+import type { Api as PopoverApi } from '@zag-js/popover';
+import type { Accessor, JSX } from 'solid-js';
 import type { Setting } from '@/features/settings/types';
 
 export interface HowToPlayModalProps {
@@ -32,3 +32,6 @@ export interface RedealerProvider {
   willNotRedeal: VoidFunction;
 }
 
+export interface StatisticsDisplayProps {
+  isVisible: boolean;
+}

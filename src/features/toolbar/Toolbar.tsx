@@ -4,11 +4,14 @@ import * as popover from '@zag-js/popover';
 import { useMachine, normalizeProps } from '@zag-js/solid';
 import { IconButton } from '@/features/common';
 import { helpCircle, refresh, settings } from '@/assets/icons';
-import { HowToPlayModal, SettingsPopover, RestartPopover, useRedeal } from '.';
+import { isSettingEnabled } from '@/features/settings/utils';
+import { SETTING_MOVE_COUNT } from '@/features/settings/constants';
+import { HowToPlayModal, SettingsPopover, RestartPopover, useRedeal, StatisticsDisplay } from '.';
 import './Toolbar.css';
 
 export function Toolbar() {
   const { willRedeal } = useRedeal();
+  const isMoveCountEnabled = isSettingEnabled(SETTING_MOVE_COUNT);
 
   const [howToMachineState, howToMachineSend] = useMachine(dialog.machine({ id: createUniqueId() }));
   const [restartMachineState, restartMachineSend] = useMachine(popover.machine({ id: createUniqueId() }));
@@ -26,24 +29,29 @@ export function Toolbar() {
   return (
     <>
       <div class="toolbar">
-        <IconButton
-          ariaLabel="restart"
-          attributes={restartPopoverMachine()?.triggerProps}
-          icon={refresh}
-          iconAlt="arrow rotating clockwise"
-        />
-        <IconButton
-          ariaLabel="help"
-          attributes={howToDialogMachine()?.triggerProps}
-          icon={helpCircle}
-          iconAlt="circle around question mark"
-        />
-        <IconButton
-          ariaLabel="settings"
-          attributes={settingsPopoverMachine()?.triggerProps}
-          icon={settings}
-          iconAlt="gear"
-        />
+        <div class="statistics">
+          <StatisticsDisplay isVisible={isMoveCountEnabled()} />
+        </div>
+        <div class="buttons">
+          <IconButton
+            ariaLabel="restart"
+            attributes={restartPopoverMachine()?.triggerProps}
+            icon={refresh}
+            iconAlt="arrow rotating clockwise"
+          />
+          <IconButton
+            ariaLabel="help"
+            attributes={howToDialogMachine()?.triggerProps}
+            icon={helpCircle}
+            iconAlt="circle around question mark"
+          />
+          <IconButton
+            ariaLabel="settings"
+            attributes={settingsPopoverMachine()?.triggerProps}
+            icon={settings}
+            iconAlt="gear"
+          />
+        </div>
       </div>
       <RestartPopover onRestart={clickRestartHandler} machine={restartPopoverMachine} />
       <HowToPlayModal machine={howToDialogMachine} />

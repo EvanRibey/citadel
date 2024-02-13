@@ -11,7 +11,7 @@ module.exports = {
   ],
   'ignorePatterns': ['dist/**'],
   'parser': '@typescript-eslint/parser',
-  'plugins': ['@typescript-eslint', '@stylistic', 'solid'],
+  'plugins': ['@typescript-eslint', '@stylistic', 'solid', 'no-relative-import-paths'],
   'parserOptions': {
     'ecmaVersion': 'latest',
     'sourceType': 'module',
@@ -28,8 +28,13 @@ module.exports = {
     '@stylistic/quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
     '@stylistic/semi': ['error', 'always', { 'omitLastInOneLineBlock': true}],
     '@typescript-eslint/no-namespace': 'off',
+    '@typescript-eslint/consistent-type-imports': 'error',
     'no-empty-function': ['error', { 'allow': ['arrowFunctions'] }],
     '@typescript-eslint/no-empty-function': ['error', { 'allow': ['arrowFunctions'] }],
+    'no-relative-import-paths/no-relative-import-paths': [
+      'error',
+      { 'allowSameFolder': true, 'rootDir': 'src', 'prefix': '@' },
+    ],
   },
   'root': true,
 };

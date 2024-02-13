@@ -1,4 +1,5 @@
-import { createMemo, createUniqueId, JSX, mergeProps, Show } from 'solid-js';
+import type { JSX} from 'solid-js';
+import { createMemo, createUniqueId, mergeProps, Show } from 'solid-js';
 import * as tooltip from '@zag-js/tooltip';
 import { normalizeProps, useMachine } from '@zag-js/solid';
 import { DIRECTION_LTR } from '@/common/constants';

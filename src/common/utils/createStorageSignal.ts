@@ -1,4 +1,5 @@
-import { Accessor, Setter, createEffect, createSignal } from 'solid-js';
+import type { Accessor, Setter} from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 
 export function createStorageSignal<T>(storageKey: string, initialValue: T): [Accessor<T>, Setter<T>] {
   let parsedStorageValue;

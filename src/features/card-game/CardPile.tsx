@@ -1,7 +1,7 @@
 import { For, Show } from 'solid-js';
 import { DIRECTION_LTR, DIRECTION_RTL } from '@/common/constants';
 import { Droppable } from '@/features/common';
-import { Card as CardClass } from '@/common/classes/Card';
+import type { Card as CardClass } from '@/common/classes/Card';
 import { Card, EmptyCard } from '.';
 import type { CardPileProps } from './types';
 import './CardPile.css';

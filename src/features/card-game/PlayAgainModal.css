@@ -1,6 +1,10 @@
 .card-game-play-again {
   width: 230px;
 
+  .statistics {
+    text-align: center;
+  }
+
   .button-container {
     text-align: center;
   }

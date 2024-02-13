@@ -4,3 +4,4 @@ export * from './RestartPopover';
 export * from './SettingsPopover';
 export * from './SettingSwitch';
 export * from './ShouldRedeal';
+export * from './StatisticsDisplay';

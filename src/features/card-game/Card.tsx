@@ -1,4 +1,4 @@
-import { JSX } from 'solid-js';
+import type { JSX } from 'solid-js';
 import { createDraggable } from '@thisbeyond/solid-dnd';
 import type { CardProps } from './types';
 import './Card.css';
