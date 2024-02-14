@@ -17,9 +17,9 @@ declare module 'solid-js' {
 
 function App() {
   return (
-    <StatisticsProvider moveCount={0}>
+    <StatisticsProvider>
       <SettingsProvider>
-        <DealerProvider shouldUndo={false} shouldRedeal={false}>
+        <DealerProvider>
           <>
             <Tableau />
             <Toolbar />

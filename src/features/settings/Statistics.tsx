@@ -8,7 +8,7 @@ const StatisticsContext = createContext<StatisticsProvider>({
 });
 
 export function StatisticsProvider(props: StatisticsProviderProps) {
-  const [moveCount, setMoveCount] = createSignal<number>(props.moveCount || 0);
+  const [moveCount, setMoveCount] = createSignal<number>(0);
 
   const statisticsManager = {
     moveCount,

@@ -11,8 +11,8 @@ const DealerContext = createContext<DealerProvider>({
 });
 
 export function DealerProvider(props: DealerProviderProps) {
-  const [shouldRedeal, setShouldRedeal] = createSignal<boolean>(props.shouldRedeal || false);
-  const [shouldUndo, setShouldUndo] = createSignal<boolean>(props.shouldUndo || false);
+  const [shouldRedeal, setShouldRedeal] = createSignal<boolean>(false);
+  const [shouldUndo, setShouldUndo] = createSignal<boolean>(false);
   const dealerManager = {
     shouldRedeal,
     shouldUndo,

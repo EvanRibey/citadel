@@ -20,7 +20,6 @@ export interface SettingsProvider {
 
 export interface StatisticsProviderProps {
   children: JSX.Element;
-  moveCount: number;
 }
 
 export interface StatisticsProvider {
@@ -30,8 +29,6 @@ export interface StatisticsProvider {
 }
 
 export interface DealerProviderProps {
-  shouldRedeal: boolean;
-  shouldUndo: boolean;
   children: JSX.Element;
 }
 
