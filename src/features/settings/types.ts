@@ -28,3 +28,18 @@ export interface StatisticsProvider {
   addMove: VoidFunction;
   resetMoveCount: VoidFunction;
 }
+
+export interface DealerProviderProps {
+  shouldRedeal: boolean;
+  shouldUndo: boolean;
+  children: JSX.Element;
+}
+
+export interface DealerProvider {
+  shouldRedeal: Accessor<boolean> | (() => boolean);
+  shouldUndo: Accessor<boolean> | (() => boolean);
+  willRedeal: VoidFunction; 
+  clearRedeal: VoidFunction;
+  willUndo: VoidFunction;
+  clearUndo: VoidFunction;
+}

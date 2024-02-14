@@ -1,8 +1,8 @@
 import { For } from 'solid-js';
 import { Popover } from '@/features/common';
-import { useSettings } from '@/features/settings';
+import { useDealer, useSettings } from '@/features/settings';
 import { SETTING_BESIEGED_CASTLE } from '@/features/settings/constants';
-import { SettingSwitch, useDealer } from '.';
+import { SettingSwitch } from '.';
 import './SettingsPopover.css';
 import type { SettingsPopoverProps } from './types';
 

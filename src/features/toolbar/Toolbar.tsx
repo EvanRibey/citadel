@@ -6,7 +6,8 @@ import { IconButton } from '@/features/common';
 import { helpCircle, refresh, settings, undo } from '@/assets/icons';
 import { isSettingEnabled } from '@/features/settings/utils';
 import { SETTING_MOVE_COUNT, SETTING_UNDO } from '@/features/settings/constants';
-import { HowToPlayModal, SettingsPopover, RestartPopover, useDealer, StatisticsDisplay } from '.';
+import { useDealer } from '@/features/settings';
+import { HowToPlayModal, SettingsPopover, RestartPopover, StatisticsDisplay } from '.';
 import './Toolbar.css';
 
 export function Toolbar() {

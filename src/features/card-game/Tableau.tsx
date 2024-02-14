@@ -20,10 +20,9 @@ import {
 } from '@/common/constants';
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
-import { useDealer } from '@/features/toolbar';
 import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/features/settings/constants';
 import { isSettingEnabled } from '@/features/settings/utils';
-import { useStatistics } from '@/features/settings';
+import { useDealer, useStatistics } from '@/features/settings';
 import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,

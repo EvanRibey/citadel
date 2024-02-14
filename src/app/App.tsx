@@ -2,8 +2,7 @@ import 'solid-js';
 import { Tableau } from '@/features/card-game';
 import { Toolbar } from '@/features/toolbar';
 import type { Droppable, Draggable } from '@/common/types';
-import { SettingsProvider, StatisticsProvider } from '@/features/settings';
-import { DealerProvider } from '@/features/toolbar';
+import { DealerProvider, SettingsProvider, StatisticsProvider } from '@/features/settings';
 import './App.css';
 import './zag.css';
 
