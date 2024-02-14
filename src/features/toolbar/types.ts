@@ -21,15 +21,19 @@ export interface SettingSwitchProps {
   onSwitch: (arg0: string, arg1: boolean) => void;
 }
 
-export interface RedealProviderProps {
+export interface DealerProviderProps {
   shouldRedeal: boolean;
+  shouldUndo: boolean;
   children: JSX.Element;
 }
 
-export interface RedealerProvider {
+export interface DealerProvider {
   shouldRedeal: Accessor<boolean> | (() => boolean);
+  shouldUndo: Accessor<boolean> | (() => boolean);
   willRedeal: VoidFunction; 
-  willNotRedeal: VoidFunction;
+  clearRedeal: VoidFunction;
+  willUndo: VoidFunction;
+  clearUndo: VoidFunction;
 }
 
 export interface StatisticsDisplayProps {

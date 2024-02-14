@@ -3,5 +3,5 @@ export * from './Toolbar';
 export * from './RestartPopover';
 export * from './SettingsPopover';
 export * from './SettingSwitch';
-export * from './ShouldRedeal';
+export * from './Dealer';
 export * from './StatisticsDisplay';

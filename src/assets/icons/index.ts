@@ -6,6 +6,7 @@ import clubs from './clubs.svg';
 import diamonds from './diamonds.svg';
 import hearts from './hearts.svg';
 import settings from './settings.svg';
+import undo from './corner-up-left.svg';
 
 export {
   close,
@@ -16,4 +17,5 @@ export {
   diamonds,
   clubs,
   settings,
+  undo,
 };
