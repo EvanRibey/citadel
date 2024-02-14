@@ -12,6 +12,8 @@ export function EmptyCard(props: EmptyCardProps): JSX.Element {
 
   const [state, send] = useMachine(tooltip.machine({
     id: createUniqueId(),
+    closeDelay: 100,
+    openDelay: 300,
     positioning: {
       placement: mergedProps.direction === DIRECTION_LTR ? 'left' : 'right',
     },

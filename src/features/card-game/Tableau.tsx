@@ -1,6 +1,4 @@
-import type {
-  Accessor,
-  Setter} from 'solid-js';
+import type { Accessor, Setter } from 'solid-js';
 import {
   createEffect,
   createMemo,
@@ -22,10 +20,9 @@ import {
 } from '@/common/constants';
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
-import { useRedeal } from '@/features/toolbar';
 import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/features/settings/constants';
 import { isSettingEnabled } from '@/features/settings/utils';
-import { useStatistics } from '@/features/settings';
+import { useDealer, useStatistics } from '@/features/settings';
 import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,
@@ -50,7 +47,7 @@ import {
 import './Tableau.css';
 
 export function Tableau() {
-  const { shouldRedeal, willNotRedeal } = useRedeal();
+  const { shouldRedeal, shouldUndo, clearRedeal, clearUndo } = useDealer();
   const { addMove, resetMoveCount } = useStatistics();
 
   const isDoubleClickEnabled = isSettingEnabled(SETTING_DOUBLECLICK_CARD);
@@ -73,7 +70,7 @@ export function Tableau() {
   const [foundationPile3, setFoundationPile3] = createSignal<Card[]>([]);
   const [foundationPile4, setFoundationPile4] = createSignal<Card[]>([]);
 
-  const [moveToPile, setMoveToPile] = createSignal<[Card | null, Setter<Card[]> | null, Setter<Card[]> | null]>([null, null, null]);
+  const [previousMoves, setPreviousMoves] = createSignal<[Card, Setter<Card[]>, Setter<Card[]>][]>([]);
 
   const addCard = (nextCard: Card) => (cards: Card[]) => [...cards, nextCard];
   const lastCard = (cards: Accessor<Card[]>): Card => cards()[cards().length - 1];
@@ -218,6 +215,20 @@ export function Tableau() {
     setCardPile8(tempPile8);
   };
 
+  const moveCard = (
+    droppedCard: Card,
+    to: Setter<Card[]>,
+    from: Setter<Card[]>,
+    recordHistory = true,
+  ) => {
+    if (droppedCard && to && from) {
+      to(addCard(droppedCard));
+      from(cards => cards.slice(0, cards.length - 1));
+      recordHistory && setPreviousMoves(previousMoves => [...previousMoves, [droppedCard, to, from]]);
+      addMove();
+    }
+  };
+
   const dragEndHandler: DragEventHandler = ({ draggable, droppable }) => {
     if (!draggable || !droppable) return;
 
@@ -237,15 +248,14 @@ export function Tableau() {
     const newPileLastCard = lastCard(newPileGetter);
 
     if (
-      FOUNDATION_PILES.includes(String(droppable.id))
-      && card !== null
-      && newPileLastCard !== undefined
-      && newPileLastCard.isOneLesser(card)
-      && newPileLastCard.isSameSuit(card)
+      (FOUNDATION_PILES.includes(String(droppable.id))
+        && card !== null
+        && newPileLastCard !== undefined
+        && newPileLastCard.isOneLesser(card)
+        && newPileLastCard.isSameSuit(card))
+      || (card && (newPileLastCard === undefined || card.isOneLesser(newPileLastCard)))
     ) {
-      setMoveToPile([card, newPileSetter, originalPileSetter]);
-    } else if (card && (newPileLastCard === undefined || card.isOneLesser(newPileLastCard))) {
-      setMoveToPile([card, newPileSetter, originalPileSetter]);
+      moveCard(card, newPileSetter, originalPileSetter);
     }
   };
 
@@ -263,7 +273,7 @@ export function Tableau() {
 
     const lastFoundationCard = lastCard(foundationPile);
     if (lastFoundationCard.isOneLesser(card) && lastFoundationCard.isSameSuit(card)) {
-      setMoveToPile([card, foundationPileSetter, currentPileSetter]);
+      moveCard(card, foundationPileSetter, currentPileSetter);
     }
   };
 
@@ -279,19 +289,22 @@ export function Tableau() {
   createEffect(() => {
     if (shouldRedeal()) {
       initTableaux();
-      willNotRedeal();
+      clearRedeal();
       resetMoveCount();
     }
   });
 
   createEffect(() => {
-    const [droppedCard, to, from] = moveToPile();
-    if (droppedCard && from && to) {
-      from(cards => cards.slice(0, cards.length - 1));
-      to(addCard(droppedCard));
-      setMoveToPile([null, null, null]);
+    if (shouldUndo()) {
+      clearUndo();
 
-      addMove();
+      if (previousMoves().length === 0) return;
+
+      const [card, to, from] = previousMoves()[previousMoves().length - 1];
+      if (card) {
+        moveCard(card, from, to, false);
+        setPreviousMoves(moves => moves.slice(0, moves.length - 1));
+      }
     }
   });
 

@@ -20,11 +20,23 @@ export interface SettingsProvider {
 
 export interface StatisticsProviderProps {
   children: JSX.Element;
-  moveCount: number;
 }
 
 export interface StatisticsProvider {
   moveCount: Accessor<number> | (() => number);
   addMove: VoidFunction;
   resetMoveCount: VoidFunction;
+}
+
+export interface DealerProviderProps {
+  children: JSX.Element;
+}
+
+export interface DealerProvider {
+  shouldRedeal: Accessor<boolean> | (() => boolean);
+  shouldUndo: Accessor<boolean> | (() => boolean);
+  willRedeal: VoidFunction; 
+  clearRedeal: VoidFunction;
+  willUndo: VoidFunction;
+  clearUndo: VoidFunction;
 }

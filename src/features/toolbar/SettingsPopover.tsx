@@ -1,13 +1,13 @@
 import { For } from 'solid-js';
 import { Popover } from '@/features/common';
-import { useSettings } from '@/features/settings';
+import { useDealer, useSettings } from '@/features/settings';
 import { SETTING_BESIEGED_CASTLE } from '@/features/settings/constants';
-import { SettingSwitch, useRedeal } from '.';
+import { SettingSwitch } from '.';
 import './SettingsPopover.css';
 import type { SettingsPopoverProps } from './types';
 
 export function SettingsPopover(props: SettingsPopoverProps) {
-  const { willRedeal } = useRedeal();
+  const { willRedeal } = useDealer();
   const { settings, enableSetting, disableSetting } = useSettings();
 
   const switchHandler = (moduleName: string, moduleStatus: boolean) => {
