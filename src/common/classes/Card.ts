@@ -1,5 +1,6 @@
 import type { CardValue, Suit } from '@/common/types';
 import cardImages from '@/assets/cards';
+import darkCardImages from '@/assets/different-cards';
 import { clubs, diamonds, hearts, spades } from '@/assets/icons';
 
 export class Card {
@@ -8,6 +9,7 @@ export class Card {
   value: CardValue;
   shortValue: string;
   image: string;
+  imageDark: string;
   suitImage: string;
 
   constructor(suit: Suit, value: CardValue) {
@@ -16,11 +18,17 @@ export class Card {
     this.value = value;
     this.shortValue = this.getShortValue(value);
     this.image = this.getImage(suit, value);
+    this.imageDark = this.getDarkImage(suit, value);
     this.suitImage = this.getSuitImage(suit);
   }
 
   private getImage(suit: Suit, value: string): string {
     return cardImages[suit + value];
+  }
+
+  private getDarkImage(suit: Suit, value: CardValue) {
+    console.log(darkCardImages[suit + value]);
+    return darkCardImages[suit + value] || cardImages[suit + value];
   }
 
   private getSuitImage(suit: Suit): string {

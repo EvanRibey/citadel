@@ -3,10 +3,10 @@
 }
 
 [data-part="content"] {
-  background: white;
+  background: var(--bg-color);
   border-radius: 4px;
   padding: 16px;
-  color: black;
+  color: var(--text-color);
   border: 0;
   position: relative;
 }
@@ -80,11 +80,11 @@
     top: 8px;
     right: 8px;
     padding: 0;
-    outline: 1px solid black;
+    outline: 1px solid var(--text-color);
     background-color: transparent;
 
     &:hover {
-      outline: 1px solid black;
+      outline: 1px solid var(--text-color);
     }
   }
 }
@@ -100,7 +100,7 @@
 [data-scope="switch"] {
   --switch-track-height: 20px;
   --switch-track-width: 40px;
-  --switch-bg: #000;
+  --switch-bg: #838f9f;
   --switch-fg: #fff;
   --switch-bg-checked: #009E50;
   --switch-track-diff: calc(var(--switch-track-width) - var(--switch-track-height));

@@ -4,17 +4,4 @@
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
-
-  --card-height: 150px;
-  --card-width: 100px;
-
-  @media screen and (min-height: 750px) {
-    --card-height: 165px;
-    --card-width: 110px;
-  }
-
-  @media screen and (min-height: 900px) {
-    --card-height: 174px;
-    --card-width: 116px;
-  }
 }

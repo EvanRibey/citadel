@@ -1,7 +1,12 @@
-import { createContext, useContext } from 'solid-js';
+import { createContext, createEffect, useContext } from 'solid-js';
 import { createStorageSignal } from '@/common/utils';
 import type { SettingsProviderProps, SettingsProvider } from './types';
-import { DEFAULT_SETTINGS, SETTING_DESCRIPTORS, STORAGE_KEY_SETTINGS } from './constants';
+import {
+  DEFAULT_SETTINGS,
+  SETTING_DARK_MODE,
+  SETTING_DESCRIPTORS,
+  STORAGE_KEY_SETTINGS,
+} from './constants';
 
 const SettingsContext = createContext<SettingsProvider>({
   settings: () => [],
@@ -12,6 +17,7 @@ const SettingsContext = createContext<SettingsProvider>({
 
 export function SettingsProvider(props: SettingsProviderProps) {
   const [settings, setSettings] = createStorageSignal<Record<string, boolean>>(STORAGE_KEY_SETTINGS, DEFAULT_SETTINGS);
+  const darkMode = () => settings()[SETTING_DARK_MODE];
   const settingsWithLabels = () => {
     return Object.keys({ ...DEFAULT_SETTINGS, ...settings()}).map(key => ({
       ...(SETTING_DESCRIPTORS[key] || {}),
@@ -19,6 +25,18 @@ export function SettingsProvider(props: SettingsProviderProps) {
       enabled: key in settings() ? settings()[key] : DEFAULT_SETTINGS[key],
     }));
   };
+
+  createEffect((prevDarkMode) => {
+    if (prevDarkMode !== darkMode()) {
+      document.querySelector('html')?.setAttribute('data-theme', darkMode() ? 'dark' : 'light');
+    }
+    return darkMode();
+  }, darkMode());
+
+  createEffect((runOnce) => {
+    runOnce && document.querySelector('html')?.setAttribute('data-theme', darkMode() ? 'dark' : 'light');
+    return false;
+  }, true);
 
   const settingsManager = {
     settings: settingsWithLabels,

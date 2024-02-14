@@ -2,6 +2,9 @@
   position: absolute;
   width: var(--card-width);
   height: var(--card-height);
+  background-color: var(--card-bg-color);
+  border-radius: 8px;
+  padding: 0 4px;
 
   &.dragging {
     z-index: 1;
@@ -9,6 +12,11 @@
 
   .card-image {
     width: 100%;
+
+    svg {
+      width: var(--card-width);
+      height: var(--card-height);
+    }
   }
 }
 
