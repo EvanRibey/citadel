@@ -15,7 +15,7 @@ export function Foundation(props: FoundationProps) {
         <For each={props.cards}>
           {(item, index) => (
             <Show
-              when={isFoundationMoveEnabled() && index() !== 0}
+              when={isFoundationMoveEnabled() && index() !== 0 && item.value !== 'King'}
               fallback={(
                 <EmptyCard
                   data={item}
