@@ -32,8 +32,8 @@ export const SETTING_DESCRIPTORS: Record<string, Partial<Setting>> = {
     description: 'Show a total count of how many moves made during the game',
   },
   [SETTING_UNDO]: {
-    name: 'Undo',
-    description: 'Show an undo button allowing you to "undo" the last move',
+    name: 'Allow Undos',
+    description: 'Show an undo button that will "undo" the last move',
   },
 };
 
