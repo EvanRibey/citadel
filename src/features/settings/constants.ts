@@ -5,6 +5,7 @@ export const SETTING_DOUBLECLICK_CARD = 'doubleClickCard';
 export const SETTING_FOUNDATION_MOVE = 'foundationMove';
 export const SETTING_MOVE_COUNT = 'moveCount';
 export const SETTING_UNDO = 'undo';
+export const SETTING_DARK_MODE = 'darkMode';
 
 export const DEFAULT_SETTINGS: Record<string, boolean> = {
   [SETTING_BESIEGED_CASTLE]: false,
@@ -12,6 +13,7 @@ export const DEFAULT_SETTINGS: Record<string, boolean> = {
   [SETTING_FOUNDATION_MOVE]: true,
   [SETTING_MOVE_COUNT]: false,
   [SETTING_UNDO]: false,
+  [SETTING_DARK_MODE]: false,
 };
 
 export const SETTING_DESCRIPTORS: Record<string, Partial<Setting>> = {
@@ -32,8 +34,11 @@ export const SETTING_DESCRIPTORS: Record<string, Partial<Setting>> = {
     description: 'Show a total count of how many moves made during the game',
   },
   [SETTING_UNDO]: {
-    name: 'Allow Undos',
+    name: 'Undos',
     description: 'Show an undo button that will "undo" the last move',
+  },
+  [SETTING_DARK_MODE]: {
+    name: 'Dark Mode',
   },
 };
 

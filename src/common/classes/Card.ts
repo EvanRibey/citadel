@@ -1,6 +1,16 @@
 import type { CardValue, Suit } from '@/common/types';
 import cardImages from '@/assets/cards';
-import { clubs, diamonds, hearts, spades } from '@/assets/icons';
+import darkCardImages from '@/assets/dark-cards';
+import {
+  clubs,
+  clubsDark,
+  diamonds,
+  diamondsDark,
+  hearts,
+  heartsDark,
+  spades,
+  spadesDark,
+} from '@/assets/icons';
 
 export class Card {
   id: string;
@@ -8,7 +18,9 @@ export class Card {
   value: CardValue;
   shortValue: string;
   image: string;
+  imageDark: string;
   suitImage: string;
+  suitImageDark: string;
 
   constructor(suit: Suit, value: CardValue) {
     this.id = `${suit}${value}`;
@@ -16,11 +28,17 @@ export class Card {
     this.value = value;
     this.shortValue = this.getShortValue(value);
     this.image = this.getImage(suit, value);
+    this.imageDark = this.getDarkImage(suit, value);
     this.suitImage = this.getSuitImage(suit);
+    this.suitImageDark = this.getDarkSuitImage(suit);
   }
 
   private getImage(suit: Suit, value: string): string {
     return cardImages[suit + value];
+  }
+
+  private getDarkImage(suit: Suit, value: CardValue) {
+    return darkCardImages[suit + value] || cardImages[suit + value];
   }
 
   private getSuitImage(suit: Suit): string {
@@ -33,6 +51,19 @@ export class Card {
         return hearts;
       case 'diamonds':
         return diamonds;
+    }
+  }
+
+  private getDarkSuitImage(suit: Suit): string {
+    switch (suit) {
+      case 'clubs':
+        return clubsDark;
+      case 'spades':
+        return spadesDark;
+      case 'hearts':
+        return heartsDark;
+      case 'diamonds':
+        return diamondsDark;
     }
   }
 
