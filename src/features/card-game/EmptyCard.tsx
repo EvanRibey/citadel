@@ -40,7 +40,7 @@ export function EmptyCard(props: EmptyCardProps): JSX.Element {
         <div {...api().positionerProps}>
           <div {...api().contentProps}>
             <div class="card-game-card-tooltip">
-              <img class="suit" src={mergedProps.data.suitImage} alt={mergedProps.data.suit} />
+              <img class="suit" src={isDarkModeEnabled() ? mergedProps.data.suitImageDark : mergedProps.data.suitImage} alt={mergedProps.data.suit} />
               {mergedProps.data.shortValue}
             </div>
           </div>

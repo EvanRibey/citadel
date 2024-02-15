@@ -13,11 +13,6 @@
 
   .card-image {
     width: 100%;
-
-    svg {
-      width: var(--card-width);
-      height: var(--card-height);
-    }
   }
 }
 
@@ -25,12 +20,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 4px;
+  font-size: 18px;
 
   .suit {
     height: 16px;
   }
 }
-
-
-

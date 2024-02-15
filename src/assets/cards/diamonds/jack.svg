@@ -82,11 +82,11 @@
            transform="translate(2.7682687,0.6819287)">
           <text
              xml:space="preserve"
-             style="font-size:144px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+             style="font-size:144px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
              x="53.478466"
              y="158.36212"
              id="text2396"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ff0000;font-family:Arial Narrow;-inkscape-font-specification:Arial Narrow"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ff5555;font-family:Arial Narrow;-inkscape-font-specification:Arial Narrow"
                sodipodi:role="line"
                id="tspan2398"
                x="53.478466"
@@ -95,13 +95,13 @@
              id="text2702"
              y="298.36212"
              x="54.779247"
-             style="font-size:144px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+             style="font-size:144px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
              xml:space="preserve"><tspan
                y="298.36212"
                x="54.779247"
                id="tspan2704"
                sodipodi:role="line"
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ff0000;font-family:Arial Narrow;-inkscape-font-specification:Arial Narrow">♦</tspan></text>
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ff5555;font-family:Arial Narrow;-inkscape-font-specification:Arial Narrow">♦</tspan></text>
         </g>
         <use
            x="0"
@@ -124,10 +124,10 @@
        sodipodi:nodetypes="ccscccc"
        id="path3918"
        d="M 309.89796,316.21927 L 438.82653,304.07641 C 448.85157,306.15365 439.57428,321.15705 448.22049,324.68528 C 538.64583,361.58486 576.77443,459.37246 620.39287,510.09943 L 122.46938,510.21927 C 146.21086,403.46884 219.14627,408.24124 309.89796,344.7907 L 309.89796,316.21927 z"
-       style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+       style="fill:#ff5555;fill-opacity:1;fill-rule:nonzero;stroke:#ff5555;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <text
        xml:space="preserve"
-       style="font-size:250px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       style="font-size:250px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
        x="195.02234"
        y="264.92499"
        id="text2941"><tspan
@@ -256,7 +256,7 @@
       <path
          sodipodi:nodetypes="ccccc"
          d="M 441.27964,222.31591 L 445.27964,200.31591 C 411.73896,196.38481 421.67904,186.58352 317.48441,200.31591 L 325.48441,222.31591 C 390.78817,212.11905 395.11205,211.31374 441.27964,222.31591 z"
-         style="opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="opacity:1;fill:#ff5555;fill-opacity:1;fill-rule:nonzero;stroke:#ff5555;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="path3858"
          transform="translate(4.3e-6,0)" />
     </g>
@@ -289,7 +289,7 @@
          d="M 593.24001,481.20752 C 591.21971,475.1466 593.24001,201.39526 593.24001,201.39526 L 609.40246,178.16176 L 621.52429,178.16176 L 621.52429,512.52225 L 593.24001,481.20752 z"
          style="opacity:1;fill:#808000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <path
-         style="opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="opacity:1;fill:#ff5555;fill-opacity:1;fill-rule:nonzero;stroke:#ff5555;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="M 623.57143,177.71421 L 608.92857,204.14279 L 608.92857,496.46421 L 623.57143,511.28564"
          id="path3988"
          transform="translate(-2.2448993,0.6479052)"

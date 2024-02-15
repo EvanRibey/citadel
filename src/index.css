@@ -2,30 +2,29 @@
   --body-color: #00512c;
   --bg-color: #fff;
   --text-color: #000;
-  --card-height: 150px;
-  --card-width: 100px;
-  --card-bg-color: var(--bg-color);
   --border-color: #999;
+  --success-green: #009E50;
+  --success-text: #fff;
+  --card-height: 150px;
+  --card-width: 107px;
+  --card-bg-color: var(--bg-color);
 
   @media screen and (min-height: 750px) {
     --card-height: 165px;
-    --card-width: 110px;
+    --card-width: 118px;
   }
 
   @media screen and (min-height: 900px) {
-    /* --card-height: 176px; */
     --card-height: 173px;
-    /* --card-width: 116px; */
     --card-width: 124px;
   }
 
   &[data-theme="dark"] {
     --body-color: #004425;
-    --text-color: #faffd2;
-    --bg-color: #1a1a2b;
-    --border-color: #000;
-    /* --card-fg-black: #599AFC; */
-    /* --card-fg-red: #FF4263; */
+    --text-color: #f1f1f1;
+    --bg-color: #1A202C;
+    --border-color: #2f3380;
+    --success-text: var(--text-color);
   }
 
   font-family: 'Signica', sans-serif;
@@ -79,17 +78,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
