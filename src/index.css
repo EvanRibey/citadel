@@ -1,9 +1,11 @@
 :root {
+  --body-color: #00512c;
   --bg-color: #fff;
   --text-color: #000;
   --card-height: 150px;
   --card-width: 100px;
   --card-bg-color: var(--bg-color);
+  --border-color: #999;
 
   @media screen and (min-height: 750px) {
     --card-height: 165px;
@@ -18,8 +20,10 @@
   }
 
   &[data-theme="dark"] {
+    --body-color: #004425;
     --text-color: #faffd2;
     --bg-color: #1a1a2b;
+    --border-color: #000;
     /* --card-fg-black: #599AFC; */
     /* --card-fg-red: #FF4263; */
   }
@@ -49,7 +53,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #00512c;
+  background-color: var(--body-color);
   background-image: radial-gradient(transparent 40%, #111);
 }
 

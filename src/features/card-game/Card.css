@@ -3,8 +3,9 @@
   width: var(--card-width);
   height: var(--card-height);
   background-color: var(--card-bg-color);
-  border-radius: 8px;
-  padding: 0 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  padding: 0 2px;
 
   &.dragging {
     z-index: 1;

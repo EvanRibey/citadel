@@ -7,7 +7,7 @@ import type { CardPileProps } from './types';
 import './CardPile.css';
 
 export function CardPile(props: CardPileProps) {
-  const getOffset = (index: number) => `${index * 20}px`;
+  const getOffset = (index: number) => `${index * 26}px`;
 
   const doubleClickCardHandler = (card: CardClass) => {
     if (!props.onDoubleClick) return undefined;
