@@ -47,8 +47,21 @@ import {
 import './Tableau.css';
 
 export function Tableau() {
-  const { shouldRedeal, shouldUndo, clearRedeal, clearUndo } = useDealer();
-  const { addMove, resetMoveCount } = useStatistics();
+  const {
+    shouldRedeal,
+    shouldUndo,
+    clearRedeal,
+    clearUndo,
+  } = useDealer();
+
+  const {
+    addMove,
+    gameTimer,
+    resetGameTimer,
+    resetMoveCount,
+    startGameTimer,
+    stopGameTimer,
+  } = useStatistics();
 
   const isDoubleClickEnabled = isSettingEnabled(SETTING_DOUBLECLICK_CARD);
   const isBesiegedCastleEnabled = isSettingEnabled(SETTING_BESIEGED_CASTLE);
@@ -213,6 +226,9 @@ export function Tableau() {
     setCardPile6(tempPile6);
     setCardPile7(tempPile7);
     setCardPile8(tempPile8);
+
+    resetMoveCount();
+    resetGameTimer();
   };
 
   const moveCard = (
@@ -226,6 +242,7 @@ export function Tableau() {
       from(cards => cards.slice(0, cards.length - 1));
       recordHistory && setPreviousMoves(previousMoves => [...previousMoves, [droppedCard, to, from]]);
       addMove();
+      gameTimer() === 0 && startGameTimer();
     }
   };
 
@@ -290,7 +307,6 @@ export function Tableau() {
     if (shouldRedeal()) {
       initTableaux();
       clearRedeal();
-      resetMoveCount();
     }
   });
 
@@ -323,6 +339,8 @@ export function Tableau() {
       cardPile7().length === 0 &&
       cardPile8().length === 0
     ) {
+      stopGameTimer();
+
       areFoundationsAnimating().forEach((setter, index) => {
         setTimeout(() => {
           setter(true);

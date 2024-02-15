@@ -1,6 +1,10 @@
 .statistics-diplay {
-  .move-count {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  .details {
     color: white;
-    font-size: 14px;
+    font-size: 15px;
   }
 }
