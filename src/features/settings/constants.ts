@@ -11,8 +11,8 @@ export const DEFAULT_SETTINGS: Record<string, boolean> = {
   [SETTING_BESIEGED_CASTLE]: false,
   [SETTING_DOUBLECLICK_CARD]: true,
   [SETTING_FOUNDATION_MOVE]: true,
-  [SETTING_MOVE_COUNT]: false,
   [SETTING_UNDO]: false,
+  [SETTING_MOVE_COUNT]: false,
   [SETTING_DARK_MODE]: false,
 };
 
@@ -29,13 +29,13 @@ export const SETTING_DESCRIPTORS: Record<string, Partial<Setting>> = {
     name: 'Move From Foundations',
     description: 'Allow movement from foundations to outside card piles',
   },
-  [SETTING_MOVE_COUNT]: {
-    name: 'Move Count',
-    description: 'Show a total count of how many moves made during the game',
-  },
   [SETTING_UNDO]: {
     name: 'Undos',
     description: 'Show an undo button that will "undo" the last move',
+  },
+  [SETTING_MOVE_COUNT]: {
+    name: 'Statistics',
+    description: 'Show a total move counter and a play timer',
   },
   [SETTING_DARK_MODE]: {
     name: 'Dark Mode',

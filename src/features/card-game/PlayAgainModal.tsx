@@ -3,13 +3,17 @@ import { Modal } from '@/features/common';
 import { useStatistics } from '@/features/settings';
 import { isSettingEnabled } from '@/features/settings/utils';
 import { SETTING_MOVE_COUNT } from '@/features/settings/constants';
+import { formatToTwoNumbers } from '@/common/utils';
 import type { PlayAgainModalProps } from './types';
 import './PlayAgainModal.css';
 
 export function PlayAgainModal(props: PlayAgainModalProps) {
-  const { moveCount } = useStatistics();
+  const { moveCount, gameTimer } = useStatistics();
 
   const isMoveCountEnabled = isSettingEnabled(SETTING_MOVE_COUNT);
+
+  const minutes = () => Math.floor(gameTimer() / 60);
+  const seconds = () => formatToTwoNumbers(gameTimer() - minutes() * 60);
 
   const clickNoHandler = () => {
     props.machine().close();
@@ -26,6 +30,9 @@ export function PlayAgainModal(props: PlayAgainModalProps) {
         <Show when={isMoveCountEnabled()}>
           <p {...props.machine().descriptionProps} class="statistics">
             Total Moves: <b>{moveCount()}</b>
+          </p>
+          <p {...props.machine().descriptionProps} class="statistics">
+            Total Game Time: <b>{minutes()}:{seconds()}</b>
           </p>
         </Show>
         <div class="button-container">

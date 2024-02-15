@@ -24,8 +24,12 @@ export interface StatisticsProviderProps {
 
 export interface StatisticsProvider {
   moveCount: Accessor<number> | (() => number);
+  gameTimer: Accessor<number> | (() => number);
   addMove: VoidFunction;
+  resetGameTimer: VoidFunction;
   resetMoveCount: VoidFunction;
+  startGameTimer: VoidFunction;
+  stopGameTimer: VoidFunction;
 }
 
 export interface DealerProviderProps {

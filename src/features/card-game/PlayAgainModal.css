@@ -3,6 +3,14 @@
 
   .statistics {
     text-align: center;
+
+    &:first-of-type {
+      margin-bottom: 0;
+    }
+
+    &:last-of-type {
+      margin-top: 0;
+    }
   }
 
   .button-container {
