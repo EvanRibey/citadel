@@ -1,6 +1,6 @@
 import type { CardValue, Suit } from '@/common/types';
 import cardImages from '@/assets/cards';
-import darkCardImages from '@/assets/different-cards';
+import darkCardImages from '@/assets/dark-cards';
 import {
   clubs,
   clubsDark,
