@@ -37,4 +37,4 @@ export function DealerProvider(props: DealerProviderProps) {
   );
 }
 
-export function useDealer() { return useContext(DealerContext) }
+export function useDealer() { return useContext<DealerProvider>(DealerContext) }
