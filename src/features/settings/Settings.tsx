@@ -15,7 +15,7 @@ const SettingsContext = createContext<SettingsProvider>({
   settings: () => [],
   enableSetting: () => [],
   disableSetting: () => [],
-  isModuleEnabled: () => false,
+  isModuleEnabled: () => () => false,
 });
 
 export function SettingsProvider(props: SettingsProviderProps) {
@@ -23,6 +23,7 @@ export function SettingsProvider(props: SettingsProviderProps) {
 
   const isDarkModeEnabled = () => settings()[SETTING_DARK_MODE];
   const isBesiegedEnabled = () => settings()[SETTING_BESIEGED_CASTLE];
+
   const settingsWithLabels = () => {
     return Object.keys({ ...DEFAULT_SETTINGS, ...settings()}).map(key => ({
       ...(SETTING_DESCRIPTORS[key] || {}),
@@ -78,7 +79,7 @@ export function SettingsProvider(props: SettingsProviderProps) {
       });
     },
     isModuleEnabled: (moduleName: string) => {
-      return !!settings()[moduleName];
+      return () => !!settings()[moduleName];
     },
   };
 
@@ -89,4 +90,4 @@ export function SettingsProvider(props: SettingsProviderProps) {
   );
 }
 
-export function useSettings() { return useContext(SettingsContext) }
+export function useSettings() { return useContext<SettingsProvider>(SettingsContext) }

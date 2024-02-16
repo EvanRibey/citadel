@@ -4,16 +4,17 @@ import * as popover from '@zag-js/popover';
 import { useMachine, normalizeProps } from '@zag-js/solid';
 import { IconButton } from '@/features/common';
 import { helpCircle, refresh, settings, undo } from '@/assets/icons';
-import { isSettingEnabled } from '@/features/settings/utils';
 import { SETTING_MOVE_COUNT, SETTING_UNDO } from '@/features/settings/constants';
-import { useDealer } from '@/features/settings';
+import { useDealer, useSettings } from '@/features/settings';
 import { HowToPlayModal, SettingsPopover, RestartPopover, StatisticsDisplay } from '.';
 import './Toolbar.css';
 
 export function Toolbar() {
   const { willRedeal, willUndo } = useDealer();
-  const isMoveCountEnabled = isSettingEnabled(SETTING_MOVE_COUNT);
-  const isUndoEnabled = isSettingEnabled(SETTING_UNDO);
+  const { isModuleEnabled } = useSettings();
+
+  const isMoveCountEnabled = isModuleEnabled(SETTING_MOVE_COUNT);
+  const isUndoEnabled = isModuleEnabled(SETTING_UNDO);
 
   const [howToMachineState, howToMachineSend] = useMachine(dialog.machine({ id: createUniqueId() }));
   const [restartMachineState, restartMachineSend] = useMachine(popover.machine({ id: createUniqueId() }));

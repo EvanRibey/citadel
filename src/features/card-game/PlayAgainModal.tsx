@@ -1,7 +1,6 @@
 import { Show } from 'solid-js';
 import { Modal } from '@/features/common';
-import { useStatistics } from '@/features/settings';
-import { isSettingEnabled } from '@/features/settings/utils';
+import { useSettings, useStatistics } from '@/features/settings';
 import { SETTING_MOVE_COUNT } from '@/features/settings/constants';
 import { formatToTwoNumbers } from '@/common/utils';
 import type { PlayAgainModalProps } from './types';
@@ -9,8 +8,9 @@ import './PlayAgainModal.css';
 
 export function PlayAgainModal(props: PlayAgainModalProps) {
   const { moveCount, gameTimer } = useStatistics();
+  const { isModuleEnabled } = useSettings();
 
-  const isMoveCountEnabled = isSettingEnabled(SETTING_MOVE_COUNT);
+  const isMoveCountEnabled = isModuleEnabled(SETTING_MOVE_COUNT);
 
   const minutes = () => Math.floor(gameTimer() / 60);
   const seconds = () => formatToTwoNumbers(gameTimer() - minutes() * 60);

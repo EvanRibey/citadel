@@ -3,7 +3,7 @@ import { createMemo, createUniqueId, mergeProps, Show } from 'solid-js';
 import * as tooltip from '@zag-js/tooltip';
 import { normalizeProps, useMachine } from '@zag-js/solid';
 import { DIRECTION_LTR } from '@/common/constants';
-import { isSettingEnabled } from '@/features/settings/utils';
+import { useSettings } from '@/features/settings';
 import { SETTING_DARK_MODE } from '@/features/settings/constants';
 import type { EmptyCardProps } from './types';
 import './Card.css';
@@ -11,7 +11,8 @@ import { EMPTY_CARD_DEFAULT_PROPS } from './constants';
 
 export function EmptyCard(props: EmptyCardProps): JSX.Element {
   const mergedProps = mergeProps(EMPTY_CARD_DEFAULT_PROPS, props);
-  const isDarkModeEnabled = isSettingEnabled(SETTING_DARK_MODE);
+  const { isModuleEnabled } = useSettings();
+  const isDarkModeEnabled = isModuleEnabled(SETTING_DARK_MODE);
 
   const [state, send] = useMachine(tooltip.machine({
     id: createUniqueId(),
