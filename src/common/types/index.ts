@@ -1,4 +1,3 @@
-export type VoidFunction = () => void;
 export type Direction = 'rtl' | 'ltr';
 
 export type Suit = 'diamonds' | 'hearts' | 'spades' | 'clubs';
