@@ -330,15 +330,7 @@ export function Tableau() {
       foundationPile1().length === WINNING_PILE_LENGTH &&
       foundationPile2().length === WINNING_PILE_LENGTH &&
       foundationPile3().length === WINNING_PILE_LENGTH &&
-      foundationPile4().length === WINNING_PILE_LENGTH &&
-      cardPile1().length === 0 &&
-      cardPile2().length === 0 &&
-      cardPile3().length === 0 &&
-      cardPile4().length === 0 &&
-      cardPile5().length === 0 &&
-      cardPile6().length === 0 &&
-      cardPile7().length === 0 &&
-      cardPile8().length === 0
+      foundationPile4().length === WINNING_PILE_LENGTH
     ) {
       stopGameTimer();
 
