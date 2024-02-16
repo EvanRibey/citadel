@@ -1,13 +1,14 @@
 import { For, Show } from 'solid-js';
 import { Droppable } from '@/features/common';
 import { SETTING_FOUNDATION_MOVE } from '@/features/settings/constants';
-import { isSettingEnabled } from '@/features/settings/utils';
+import { useSettings } from '@/features/settings';
 import type { FoundationProps } from './types';
 import { Card, EmptyCard } from '.';
 import './Foundation.css';
 
 export function Foundation(props: FoundationProps) {
-  const isFoundationMoveEnabled = isSettingEnabled(SETTING_FOUNDATION_MOVE);
+  const { isModuleEnabled } = useSettings();
+  const isFoundationMoveEnabled = isModuleEnabled(SETTING_FOUNDATION_MOVE);
 
   return (
     <Droppable id={props.id} type={props.type}>

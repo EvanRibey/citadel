@@ -1,6 +1,7 @@
 import * as zagSwitch from '@zag-js/switch';
 import { normalizeProps, useMachine } from '@zag-js/solid';
 import { createMemo, createUniqueId } from 'solid-js';
+import { Switch } from '@/features/common';
 import type { SettingSwitchProps } from './types';
 import './SettingSwitch.css';
 
@@ -21,12 +22,7 @@ export function SettingSwitch(props: SettingSwitchProps) {
         <p class="descriptor">{props.setting.description || ''}</p>
       </div>
       <div class="setting-switch-toggle">
-        <label {...switchMachine().rootProps}>
-          <input {...switchMachine().hiddenInputProps} aria-labelledby={props.setting.module} />
-          <span {...switchMachine().controlProps}>
-            <span {...switchMachine().thumbProps} />
-          </span>
-        </label>
+        <Switch machine={switchMachine} ariaLabel={props.setting.module} />
       </div>
     </>
   );

@@ -1,11 +1,12 @@
 import { Modal } from '@/features/common';
 import type { HowToPlayModalProps } from './types';
-import { isSettingEnabled } from '@/features/settings/utils';
+import { useSettings } from '@/features/settings';
 import { SETTING_BESIEGED_CASTLE } from '@/features/settings/constants';
 import { Show } from 'solid-js';
 
 export function HowToPlayModal(props: HowToPlayModalProps) {
-  const isBesiegedCastleEnabled = isSettingEnabled(SETTING_BESIEGED_CASTLE);
+  const { isModuleEnabled } = useSettings();
+  const isBesiegedCastleEnabled = isModuleEnabled(SETTING_BESIEGED_CASTLE);
   const gameName = () => isBesiegedCastleEnabled() ? 'Besieged Castle' : 'Citadel';
   
   return (

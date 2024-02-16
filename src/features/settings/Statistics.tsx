@@ -51,4 +51,4 @@ export function StatisticsProvider(props: StatisticsProviderProps) {
   );
 }
 
-export function useStatistics() { return useContext(StatisticsContext) }
+export function useStatistics() { return useContext<StatisticsProvider>(StatisticsContext) }

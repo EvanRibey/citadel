@@ -1,7 +1,7 @@
 import type { Accessor, JSX } from 'solid-js';
 import type { Api } from '@zag-js/dialog';
 import type { Card } from '@/common/classes/Card';
-import type { Direction, VoidFunction } from '@/common/types';
+import type { Direction } from '@/common/types';
 
 export interface CardPileProps {
   cards: Card[];

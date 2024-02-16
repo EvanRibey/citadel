@@ -1,14 +1,16 @@
 import type { JSX } from 'solid-js';
 import { createDraggable } from '@thisbeyond/solid-dnd';
-import { isSettingEnabled } from '@/features/settings/utils';
 import { SETTING_DARK_MODE } from '@/features/settings/constants';
+import { useSettings } from '@/features/settings';
 import type { CardProps } from './types';
 import './Card.css';
 
 export function Card(props: CardProps): JSX.Element {
+  const { isModuleEnabled } = useSettings();
+
   // @ts-expect-error: Directive used below
   const draggable = createDraggable(props.data.id);
-  const isDarkModeEnabled = isSettingEnabled(SETTING_DARK_MODE);
+  const isDarkModeEnabled = isModuleEnabled(SETTING_DARK_MODE);
 
   const doubleClickHandler = () => {
     props.onDoubleClick && props.onDoubleClick();

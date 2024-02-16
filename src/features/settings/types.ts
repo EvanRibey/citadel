@@ -15,7 +15,7 @@ export interface SettingsProvider {
   settings: () => Setting[];
   enableSetting: ((arg0: string) => void) | VoidFunction;
   disableSetting: ((arg0: string) => void) | VoidFunction;
-  isModuleEnabled: ((arg0: string) => boolean) | (() => boolean);
+  isModuleEnabled: ((arg0: string) => () => boolean) | (() => () => boolean);
 }
 
 export interface StatisticsProviderProps {

@@ -43,3 +43,6 @@ export const SETTING_DESCRIPTORS: Record<string, Partial<Setting>> = {
 };
 
 export const STORAGE_KEY_SETTINGS = 'settingsStorage';
+
+export const APP_TITLE_CITADEL = 'Citadel Solitaire';
+export const APP_TITLE_BESIEGED = 'Beseiged Castle Solitaire';

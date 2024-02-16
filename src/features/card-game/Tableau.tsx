@@ -21,8 +21,7 @@ import {
 import { Card } from '@/common/classes/Card';
 import { Deck } from '@/common/classes/Deck';
 import { SETTING_BESIEGED_CASTLE, SETTING_DOUBLECLICK_CARD } from '@/features/settings/constants';
-import { isSettingEnabled } from '@/features/settings/utils';
-import { useDealer, useStatistics } from '@/features/settings';
+import { useDealer, useSettings, useStatistics } from '@/features/settings';
 import { CardPile, Foundation, PlayAgainModal } from '.';
 import {
   DROPPABLE_TYPE_CARDPILE,
@@ -63,8 +62,10 @@ export function Tableau() {
     stopGameTimer,
   } = useStatistics();
 
-  const isDoubleClickEnabled = isSettingEnabled(SETTING_DOUBLECLICK_CARD);
-  const isBesiegedCastleEnabled = isSettingEnabled(SETTING_BESIEGED_CASTLE);
+  const { isModuleEnabled } = useSettings();
+
+  const isDoubleClickEnabled = isModuleEnabled(SETTING_DOUBLECLICK_CARD);
+  const isBesiegedCastleEnabled = isModuleEnabled(SETTING_BESIEGED_CASTLE);
 
   const [machineState, machineSend] = useMachine(dialog.machine({ id: createUniqueId() }));
   const playAgainDialog = createMemo(() => dialog.connect(machineState, machineSend, normalizeProps));
@@ -329,15 +330,7 @@ export function Tableau() {
       foundationPile1().length === WINNING_PILE_LENGTH &&
       foundationPile2().length === WINNING_PILE_LENGTH &&
       foundationPile3().length === WINNING_PILE_LENGTH &&
-      foundationPile4().length === WINNING_PILE_LENGTH &&
-      cardPile1().length === 0 &&
-      cardPile2().length === 0 &&
-      cardPile3().length === 0 &&
-      cardPile4().length === 0 &&
-      cardPile5().length === 0 &&
-      cardPile6().length === 0 &&
-      cardPile7().length === 0 &&
-      cardPile8().length === 0
+      foundationPile4().length === WINNING_PILE_LENGTH
     ) {
       stopGameTimer();
 
