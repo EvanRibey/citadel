@@ -7,6 +7,10 @@ Built in a drag and drop manner using SolidJS and TypeScript.
 ## Features
 - Drag and drop movement of cards to/from card piles
 - Double click to move eligible cards in their card piles to the foundations
+- Option to adjust the game mode to Besieged Castle a more challenging variant of Citadel 
+- Option to show in-game statistics with a move count and play timer
+- Option to allow undos to take back the last played move and the moves before that
+- Dark mode
 
 ## Personal Notes
 I learned about this kind of solitaire during the holidays when I was looking for a more challenging solitaire, one that would require me to think and strategize a bit more. Through some searching, this, and Beleagured Castle came up. I loved the challenge of thinking through turns further in advance, and loved it so much that I wanted to see if I could program it.
