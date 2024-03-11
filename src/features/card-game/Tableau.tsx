@@ -252,7 +252,7 @@ export function Tableau() {
 
     draggable.node.classList.remove('dragging');
 
-    const [originalPileGetter, originalPileSetter] = lastCardHash()[draggable.id] || [];
+    const [originalPileGetter, originalPileSetter] = lastCardHash()[draggable.data.id] || [];
     const [newPileGetter, newPileSetter] = pilesHash()[droppable.id] || [];
 
     if (!originalPileGetter
@@ -281,7 +281,7 @@ export function Tableau() {
     draggable.node.classList.add('dragging');
   };
 
-  const doubleClickCardHandler = (card: Card) => () => {
+  const doubleClickCardHandler = (card: Card) => {
     if (!isDoubleClickEnabled()) return;
 
     const [, currentPileSetter] = lastCardHash()[card.id] || [];
@@ -290,7 +290,7 @@ export function Tableau() {
     if (!foundationPile || !foundationPileSetter || !currentPileSetter) return;
 
     const lastFoundationCard = lastCard(foundationPile);
-    if (lastFoundationCard.isOneLesser(card) && lastFoundationCard.isSameSuit(card)) {
+    if (lastFoundationCard.isOneLesser(card)) {
       moveCard(card, foundationPileSetter, currentPileSetter);
     }
   };

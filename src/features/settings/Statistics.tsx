@@ -14,8 +14,7 @@ const StatisticsContext = createContext<StatisticsProvider>({
 export function StatisticsProvider(props: StatisticsProviderProps) {
   const [moveCount, setMoveCount] = createSignal<number>(0);
   const [gameTimer, setGameTimer] = createSignal<number>(0);
-
-  let intervalTimer: null | ReturnType<typeof setInterval> = null;
+  const [gameInterval, setGameInterval] = createSignal<null | ReturnType<typeof setInterval>>(null);
 
   const statisticsManager = {
     moveCount,
@@ -28,20 +27,29 @@ export function StatisticsProvider(props: StatisticsProviderProps) {
     },
     resetGameTimer: () => {
       setGameTimer(0);
-      if (intervalTimer !== null) clearInterval(intervalTimer);
+      if (gameInterval() !== null) {
+        clearInterval(gameInterval() || 0);
+        setGameInterval(null);
+      }
     },
     startGameTimer: () => {
-      intervalTimer = setInterval(() => {
+      setGameInterval(setInterval(() => {
         setGameTimer(prevTime => prevTime + 1);
-      }, 1000);
+      }, 1000));
     },
     stopGameTimer: () => {
-      if (intervalTimer !== null) clearInterval(intervalTimer);
+      if (gameInterval() !== null) {
+        clearInterval(gameInterval() || 0);
+        setGameInterval(null);
+      }
     },
   };
 
   onCleanup(() => {
-    if (intervalTimer !== null) clearInterval(intervalTimer);
+    if (gameInterval() !== null) {
+      clearInterval(gameInterval() || 0);
+      setGameInterval(null);
+    }
   });
 
   return (
