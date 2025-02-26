@@ -30,7 +30,7 @@
     "eslint-plugin-solid": "^0.13.1",
     "husky": "^8.0.3",
     "typescript": "^5.2.2",
-    "vite": "^5.4.6",
+    "vite": "^5.4.14",
     "vite-plugin-solid": "^2.8.0"
   }
 }
